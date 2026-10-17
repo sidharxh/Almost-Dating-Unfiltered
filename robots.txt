@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sidharxh.github.io/Almost-Dating-Unfiltered/sitemap.xml
