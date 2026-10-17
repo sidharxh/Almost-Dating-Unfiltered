@@ -20,22 +20,122 @@
 </style>
 </head>
 <body><div class="shell">
-<header class="topbar"><a class="brand" href="./">almost<span>.</span></a><nav><a href="./">Home</a><a href="confessions.html" aria-current="page">Confessions</a><a href="admin.html">Admin</a></nav></header>
+<header class="topbar"><a class="brand" href="./">almost<span>.</span></a><nav><a href="./">Home</a><a href="#submit-confession">Add confession</a></nav></header>
 <main>
-<section class="intro"><div class="eyebrow">The anonymous archive</div><h1>Love is rarely a straight line.</h1><p>Stories from dates that went right, wrong, or somewhere in between. Filter by the kind of moment you want to read. These stories are fictional and written for adults; intimacy-related stories are restricted to readers 18+.</p></section>
+<section class="intro"><div class="eyebrow">The anonymous archive</div><h1>Love is rarely a straight line.</h1><p>First dates, mixed signals, unexpected chemistry, and the moments that stay with you. Pick a category or share your own confession. Intimacy-related stories are for adults 18+.</p><div class="actions"><a class="btn" href="#submit-confession">Add a confession</a></div></section>
 <section aria-label="Confession filters"><div class="toolbar"><div class="filters" id="filters"></div><div class="count" id="count" aria-live="polite"></div></div><div class="feed" id="feed"></div></section>
 <section class="submit-panel" id="submit-confession" aria-labelledby="submit-title"><div class="eyebrow">Your turn</div><h2 id="submit-title">Add your confession.</h2><p>Submissions stay pending until someone approves them. Do not include real names, phone numbers, addresses, or identifying details. Adults only.</p><form id="confession-form"><label>Story title<input name="title" maxlength="110" required placeholder="Give it a title"></label><label>Category<select name="category" required><option value="First dates">First dates</option><option value="Ghosting">Ghosting</option><option value="Situationships">Situationships</option><option value="Dating disasters">Dating disasters</option><option value="Green flags">Green flags</option><option value="Breakups & exes">Breakups &amp; exes</option><option value="Secret crushes">Secret crushes</option><option value="LGBTQ+ dating">LGBTQ+ dating</option><option value="Intimacy & 18+">Intimacy &amp; 18+</option></select></label><label>Display name (optional)<input name="author" maxlength="40" placeholder="e.g. chaiandbaddecisions"></label><label>Your story<textarea name="body" minlength="80" maxlength="8000" rows="7" required placeholder="Tell us what happened. Keep it anonymous."></textarea></label><label class="consent"><input type="checkbox" name="adult" required> I am 18 or older and have removed identifying details.</label><button class="btn" type="submit">Submit for approval</button><p id="submit-status" class="status" role="status" aria-live="polite"></p></form></section>
 </main>
-<footer class="footer"><span>© 2026 almost. Dating, unfiltered.</span><a href="./">Back to home ↑</a><span>Fictional stories · Independent of Hinge</span></footer>
+<section class="submit-panel" style="text-align:center" aria-label="Hinge guide"><div class="eyebrow">Want better first dates?</div><h2>The Almost Hinge Glow-Up Guide</h2><p>Practical profile and prompt advice, without the dating-app guru nonsense.</p><a class="btn" href="assets/hinge-glow-up-guide.pdf" download>Get the free Hinge guide</a></section>
+<footer class="footer"><span>© 2026 almost. Dating, unfiltered.</span><a href="./">Back to home ↑</a><span>Independent of Hinge</span></footer>
 </div>
 <script>
 const stories=[
-{cat:"First dates",title:"We Split the Bill, Then Forgot to Leave",desc:"A chai-and-momos date becomes the kind of evening neither person wants to end.",url:"confessions/split-the-bill.html",adult:false},
-{cat:"Green flags",title:"The Rain Ruined Our Plans. Then Things Got Interesting.",desc:"A monsoon downpour changes the plan, and an honest conversation changes the date.",url:"confessions/rain-ruined-our-plans.html",adult:false},
-{cat:"Intimacy & 18+",title:"We Cooked Dinner Together. I Was Not Prepared for the Chemistry.",desc:"A chaotic homemade dinner turns into unexpected chemistry, with communication at every step.",url:"confessions/cooked-dinner-chemistry.html",adult:true},
-{cat:"Green flags",title:"The Last Metro Was Not a Romantic Deadline",desc:"A good date does not require missing the last metro or abandoning real-life responsibilities.",url:"confessions/last-metro.html",adult:false},
-{cat:"Intimacy & 18+",title:"The Chemistry Was Real. So Was the No.",desc:"Attraction matters, but so does listening when someone sets a boundary.",url:"confessions/chemistry-and-consent.html",adult:true},
-{cat:"First dates",title:"₹600, Two Coffees, and a Terrible Bowling Score",desc:"A ₹600 bowling date proves a good time does not need an expensive backdrop.",url:"confessions/600-bowling-date.html",adult:false}
+  {
+    "cat": "First dates",
+    "title": "We Were Supposed to Have One Drink. I Reached Home at 2 AM.",
+    "desc": "I matched with this guy on Hinge after he commented on my prompt about loving men who can actually hold a conversation. He was 28, worked in IT,…",
+    "url": "confessions/split-the-bill.html",
+    "adult": false
+  },
+  {
+    "cat": "Breakups & exes",
+    "title": "My Hinge Date Was Perfect. Then I Saw His Ex's Name on His Phone.",
+    "desc": "I met him on Hinge in January. He was funny, well-spoken, and worked at a startup. He lived with his parents in Noida, which I didn't mind…",
+    "url": "confessions/rain-ruined-our-plans.html",
+    "adult": false
+  },
+  {
+    "cat": "Intimacy & 18+",
+    "title": "She Came to My Flat to Watch a Movie. We Never Finished It.",
+    "desc": "I'd been talking to this woman on Hinge for almost two weeks. We were both 25, working our first proper jobs, and living away from our families.…",
+    "url": "confessions/cooked-dinner-chemistry.html",
+    "adult": true
+  },
+  {
+    "cat": "Serious intentions",
+    "title": "I Told Her I Was Saving for Marriage. She Thought I Was Proposing.",
+    "desc": "I matched with a woman who had written in her Hinge profile that she wanted someone emotionally mature, financially responsible, and capable of…",
+    "url": "confessions/last-metro.html",
+    "adult": false
+  },
+  {
+    "cat": "Situationships",
+    "title": "My Situationship Ended When I Asked One Question.",
+    "desc": "We met on Hinge last monsoon. He was charming, funny, and exactly my type. We started with coffee dates, then dinner, then evenings at his place…",
+    "url": "confessions/chemistry-and-consent.html",
+    "adult": false
+  },
+  {
+    "cat": "Intimacy & 18+",
+    "title": "He Said We Should Just Watch One Episode",
+    "desc": "I matched with him on Hinge after three weeks of terrible conversations with men who thought “hey beautiful” was a personality. Our first date…",
+    "url": "confessions/600-bowling-date.html",
+    "adult": true
+  },
+  {
+    "cat": "Situationships",
+    "title": "My Situationship Has a Girlfriend. Apparently, I’m the Plot Twist.",
+    "desc": "We met on Hinge, went on four dates, and spent two months pretending we were too chill to ask what we were. He remembered my coffee order,…",
+    "url": "confessions/situationship-has-a-girlfriend.html",
+    "adult": false
+  },
+  {
+    "cat": "Intimacy & 18+",
+    "title": "My Parents Were Asleep in the Next Room",
+    "desc": "I still live with my parents. Decent job, decent salary, zero chance of privacy unless the entire household suddenly develops an interest in…",
+    "url": "confessions/parents-asleep-next-room.html",
+    "adult": true
+  },
+  {
+    "cat": "Breakups & exes",
+    "title": "She Was Supposed to Be My Rebound",
+    "desc": "My ex broke up with me after four years together. I spent the next month pretending I was fine, going to work, hitting the gym, and checking her…",
+    "url": "confessions/she-was-my-rebound.html",
+    "adult": false
+  },
+  {
+    "cat": "First dates",
+    "title": "The Lift Took Forty Seconds. I Thought About It for Four Days.",
+    "desc": "My neighbour and I had been exchanging polite nods for almost a year. We knew each other's faces, delivery schedules, and the exact expression…",
+    "url": "confessions/forty-second-lift.html",
+    "adult": false
+  },
+  {
+    "cat": "First dates",
+    "title": "He Was Better at Flirting in Person",
+    "desc": "His Hinge prompts were terrible. One said his biggest strength was “being available for food.” Another said he was looking for someone who could…",
+    "url": "confessions/better-at-flirting-in-person.html",
+    "adult": false
+  },
+  {
+    "cat": "Breakups & exes",
+    "title": "My Ex Texted the Exact Night I Slept With Someone New",
+    "desc": "My ex had been gone for five months. No contact, no dramatic breakup reunion, no accidental meetings at coffee shops. I was finally moving on. I…",
+    "url": "confessions/ex-texted-that-night.html",
+    "adult": false
+  },
+  {
+    "cat": "Situationships",
+    "title": "We Kept Saying It Was Just Physical",
+    "desc": "We met on Hinge and agreed that neither of us wanted anything serious. That was the deal. No expectations. No labels. No jealous questions about…",
+    "url": "confessions/just-physical.html",
+    "adult": true
+  },
+  {
+    "cat": "First dates",
+    "title": "He Recognised Me From My Fake Hinge Profile",
+    "desc": "I made a second Hinge account after a bad breakup. Different pictures, a more confident bio, and prompts that made me sound like someone who had…",
+    "url": "confessions/fake-hinge-profile.html",
+    "adult": false
+  },
+  {
+    "cat": "Intimacy & 18+",
+    "title": "The First Time He Stayed Until Morning",
+    "desc": "We'd been dating for six weeks, but our relationship existed almost entirely in the gaps between work, family obligations, and the occasional…",
+    "url": "confessions/stayed-until-morning.html",
+    "adult": true
+  }
 ];
 const categories=["All stories","First dates","Ghosting","Situationships","Dating disasters","Green flags","Breakups & exes","Secret crushes","LGBTQ+ dating","Intimacy & 18+"];
 let active="All stories",ageConfirmed=sessionStorage.getItem("almost18")==="yes";
@@ -50,17 +150,6 @@ function setFilter(category){
  active=category;render();
  if(typeof gtag==="function")gtag("event","confession_filter",{category:category});
 }
-function render(){
- filtersEl.innerHTML=categories.map(c=>{
-  const total=stories.filter(s=>s.cat===c).length;
-  return `<button type="button" class="filter ${active===c?"active":""}" data-category="${c}" aria-pressed="${active===c}" ${c!=="All stories"&&total===0?"title=\"No stories in this category yet\"":""}>${c}${c!=="All stories"?` (${total})`:""}</button>`;
- }).join("");
- filtersEl.querySelectorAll("button[data-category]").forEach(button=>button.addEventListener("click",()=>setFilter(button.dataset.category)));
- const shown=stories.filter(s=>(active==="All stories"||s.cat===active)&&(!s.adult||ageConfirmed));
- countEl.textContent=`Showing ${shown.length} ${shown.length===1?"story":"stories"} in ${active}`;
- feedEl.innerHTML=shown.map(s=>`<a class="story" href="${s.url}" data-story-title="${s.title.replaceAll('"','&quot;')}" data-story-category="${s.cat}"><span class="tag">${s.cat}</span><h2>${s.title}</h2><p>${s.desc}</p><div class="story-foot"><span>Fictional story${s.adult?" · 18+":""}</span><span class="read">Read story →</span></div></a>`).join("")||`<div class="empty">No stories in this category yet. Check back as the archive grows.</div>`;
- feedEl.querySelectorAll("a[data-story-title]").forEach(link=>link.addEventListener("click",()=>{if(typeof gtag==="function")gtag("event","confession_open",{story_title:link.dataset.storyTitle,story_category:link.dataset.storyCategory})}));
-}
 const SUPABASE_URL="https://uajkmfiuuljbnuawovma.supabase.co";
 const SUPABASE_KEY="sb_publishable_gVCj4Z6JlPjWNwc7buKKmg_zaZTLU7r";
 const reactions=["Relatable","Plot Twist","Green Flag","Red Flag","Been There"];
@@ -69,8 +158,8 @@ async function loadCommunityStories(){try{const rows=await db("confessions?selec
 async function loadReactionCounts(){const ids=stories.filter(s=>s.dynamic).map(s=>s.id);if(!ids.length)return;try{const rows=await db(`confession_reactions?select=confession_id,reaction&confession_id=in.(${ids.join(",")})`);const counts={};rows.forEach(r=>{const k=r.confession_id+"|"+r.reaction;counts[k]=(counts[k]||0)+1});document.querySelectorAll("[data-reaction-count]").forEach(el=>el.textContent=counts[el.dataset.reactionCount]||0);}catch(e){console.warn("Reaction counts unavailable",e)}}
 const form=document.getElementById("confession-form");form.addEventListener("submit",async e=>{e.preventDefault();const status=document.getElementById("submit-status"),f=new FormData(form);const body=String(f.get("body")||"").trim(),title=String(f.get("title")||"").trim();if(body.length<80||title.length<3){status.textContent="Please add a title and a story of at least 80 characters.";return}const button=form.querySelector("button[type=submit]");button.disabled=true;status.textContent="Submitting…";try{await db("confessions",{method:"POST",body:JSON.stringify({title,category:f.get("category"),author:String(f.get("author")||"Anonymous").trim().slice(0,40)||"Anonymous",body,status:"pending"})});form.reset();status.textContent="Submitted. Your confession is now pending approval.";if(typeof gtag==="function")gtag("event","confession_submit");}catch(err){status.textContent="Submission failed. Check that the Supabase setup SQL has been run, then try again.";console.error(err)}finally{button.disabled=false}});
 function render(){
- filtersEl.innerHTML=categories.map(c=>{const total=stories.filter(s=>c==="All stories"||s.cat===c).length;return `<button type="button" class="filter ${active===c?"active":""}" data-category="${c}" aria-pressed="${active===c}">${c} (${total})</button>`}).join("");
- filtersEl.querySelectorAll("button[data-category]").forEach(button=>button.addEventListener("click",()=>setFilter(button.dataset.category)));
+ filtersEl.innerHTML=categories.map(c=>{const total=stories.filter(s=>c==="All stories"||s.cat===c).length;return `<button type="button" class="filter ${active===c?"active":""}" data-category="${c}" aria-pressed="${active===c}">${c}${c==="All stories"?` (${total})`:` (${stories.filter(s=>s.cat===c).length})`}</button>`}).join("");
+ filtersEl.querySelectorAll("button[data-category]").forEach(button=>button.onclick=()=>setFilter(button.dataset.category));
  const shown=stories.filter(s=>(active==="All stories"||s.cat===active)&&(!s.adult||ageConfirmed));countEl.textContent=`Showing ${shown.length} ${shown.length===1?"story":"stories"} in ${active}`;
  feedEl.innerHTML=shown.map(s=>s.dynamic?`<article class="story dynamic"><span class="tag">${escapeHtml(s.cat)}</span><h2>${escapeHtml(s.title)}</h2><p>${escapeHtml(s.desc)}</p><div class="story-detail">${escapeHtml(s.body)}</div><div class="story-foot"><span>Community confession · ${escapeHtml(s.author)}</span><span>Approved</span></div><div class="reaction-row">${reactions.map(r=>`<button class="reaction" data-id="${s.id}" data-reaction="${r}">${r} <span data-reaction-count="${s.id}|${r}">0</span></button>`).join("")}</div></article>`:`<a class="story" href="${s.url}" data-story-title="${s.title.replaceAll('"','&quot;')}" data-story-category="${s.cat}"><span class="tag">${s.cat}</span><h2>${s.title}</h2><p>${s.desc}</p><div class="story-foot"><span>Fictional story${s.adult?" · 18+":""}</span><span class="read">Read story →</span></div></a>`).join("")||`<div class="empty">No stories in this category yet. Check back as the archive grows.</div>`;
  feedEl.querySelectorAll("a[data-story-title]").forEach(link=>link.addEventListener("click",()=>{if(typeof gtag==="function")gtag("event","confession_open",{story_title:link.dataset.storyTitle,story_category:link.dataset.storyCategory})}));
