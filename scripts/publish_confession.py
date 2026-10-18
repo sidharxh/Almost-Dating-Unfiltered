@@ -14,7 +14,7 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "https://sidharxh.github.io/Almost-Dating-Unfiltered/"
+BASE = "https://almostunfiltereddating.com/"
 CATEGORIES = {
     "First dates", "Ghosting", "Situationships", "Dating disasters", "Green flags",
     "Breakups & exes", "Secret crushes", "LGBTQ+ dating", "Intimacy & 18+",
