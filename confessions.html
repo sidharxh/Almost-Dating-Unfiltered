@@ -13,10 +13,11 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WWJH2R0QS6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WWJH2R0QS6');</script>
 <style>
-:root{color-scheme:dark;--bg:#100d16;--paper:#191421;--ink:#f3edf9;--muted:#b1a7bf;--line:#342a40;--accent:#b99be8;--accent-ink:#1a1223}
+:root{color-scheme:dark;--bg:#100d16;--paper:#191421;--ink:#f3edf9;--muted:#b1a7bf;--line:#342a40;--accent:#b99be8;--pink:#ff79b8;--accent-ink:#1a1223}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif}a{color:inherit}button{font:inherit;cursor:pointer}.shell{max-width:1080px;margin:auto;padding:0 24px}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font:700 30px Georgia,serif;letter-spacing:-1.5px;text-decoration:none}.brand span{color:var(--accent)}nav{display:flex;gap:22px;align-items:center;color:var(--muted);font-size:14px}nav a{text-decoration:none}nav a:hover{color:var(--ink)}.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--accent);border-radius:999px;background:var(--accent);color:var(--accent-ink);padding:11px 16px;text-decoration:none;font-size:13px;font-weight:750}.btn.secondary{background:transparent;color:var(--ink);border-color:var(--line)}.intro{padding:54px 0 25px}.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:800}.intro h1{font:500 clamp(42px,6vw,64px)/1 Georgia,serif;letter-spacing:-2px;margin:14px 0}.intro p{color:var(--muted);line-height:1.7;max-width:690px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:18px 0 24px;border-bottom:1px solid var(--line)}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{border:1px solid var(--line);border-radius:999px;background:#17111f;color:var(--muted);padding:9px 13px;font-size:12px}.filter.active{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:800}.filter:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.filter:disabled{opacity:.55;cursor:not-allowed}.count{font-size:12px;color:var(--muted)}.feed{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:24px 0 64px}.story{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:21px;display:flex;flex-direction:column;min-height:245px;text-decoration:none;transition:transform .18s,border-color .18s}.story:hover{transform:translateY(-3px);border-color:var(--accent)}.tag{align-self:flex-start;background:#30243e;color:#d5c0f4;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}.story h2{font:24px/1.12 Georgia,serif;margin:15px 0 9px}.story p{color:var(--muted);font-size:13px;line-height:1.65;margin:0}.story-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:20px;font-size:11px;color:var(--muted)}.read{color:var(--accent);font-size:12px;font-weight:800}.empty{grid-column:1/-1;text-align:center;padding:45px;color:var(--muted);border:1px dashed var(--line);border-radius:16px}.footer{border-top:1px solid var(--line);padding:25px 0 36px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:16px}
 .submit-panel{max-width:760px;margin:0 auto 70px;padding:28px;background:var(--paper);border:1px solid var(--line);border-radius:18px}.submit-panel h2{font:36px Georgia,serif;margin:8px 0}.submit-panel>p{color:var(--muted);line-height:1.6}.submit-panel form{display:grid;gap:15px}.submit-panel label{display:grid;gap:7px;font-size:13px;color:var(--muted)}.submit-panel input,.submit-panel select,.submit-panel textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;background:#100d16;color:var(--ink);font:inherit}.submit-panel .consent{display:flex;align-items:center;gap:9px}.submit-panel .consent input{width:auto}.status{font-size:13px;color:var(--accent)}.reaction-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}.reaction{border:1px solid var(--line);background:#100d16;color:var(--muted);border-radius:999px;padding:6px 9px;font-size:11px}.reaction[disabled]{opacity:.6}.story-detail{white-space:pre-wrap;line-height:1.7;color:var(--ink);margin-top:14px}.story.dynamic{cursor:default}.story.dynamic:hover{transform:none}.admin-note{color:var(--muted);font-size:13px;line-height:1.6}
 @media(max-width:800px){.feed{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar{align-items:flex-start;flex-direction:column}}@media(max-width:560px){.shell{padding:0 17px}.topbar{height:68px}.topbar nav{gap:14px}.intro{padding-top:40px}.feed{grid-template-columns:1fr}.story{min-height:200px}.footer{flex-direction:column}}
+button:hover,.btn:hover,.guide-inline-button:hover{border-color:var(--pink)!important;box-shadow:0 0 0 1px color-mix(in srgb,var(--pink) 22%,transparent)}.brand span,.eyebrow{color:var(--pink)}
 </style>
 </head>
 <body><div class="shell">
@@ -221,4 +222,17 @@ render();loadCommunityStories();
 })();
 </script>
 
+<script id="almost-ga-click-tracking">
+(function(){
+ if(window.__almostClickTrackingInstalled)return;window.__almostClickTrackingInstalled=true;
+ document.addEventListener('click',function(event){
+  var el=event.target&&event.target.closest?event.target.closest('a,button,input[type="button"],input[type="submit"],[role="button"]'):null;
+  if(!el||typeof window.gtag!=="function")return;
+  var text=(el.getAttribute('aria-label')||el.innerText||el.value||el.title||'').replace(/\s+/g,' ').trim().slice(0,100);
+  var id=el.id||'';var cls=typeof el.className==='string'?el.className.slice(0,120):'';
+  var href=el.tagName==='A'?(el.getAttribute('href')||''):'';
+  window.gtag('event','ui_click',{element_text:text||'(no label)',element_id:id,element_class:cls,element_type:el.tagName.toLowerCase(),page_path:location.pathname,link_url:href,transport_type:'beacon'});
+ },true);
+})();
+</script>
 </body></html>
