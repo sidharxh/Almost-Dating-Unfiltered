@@ -163,7 +163,7 @@ function render(){
  filtersEl.querySelectorAll("button[data-category]").forEach(button=>button.onclick=()=>setFilter(button.dataset.category));
  const shown=stories.filter(s=>(active==="All stories"||s.cat===active)&&(!s.adult||ageConfirmed));countEl.textContent=`Showing ${shown.length} ${shown.length===1?"story":"stories"} in ${active}`;
  feedEl.innerHTML=shown.map(s=>s.dynamic?`<article class="story dynamic"><span class="tag">${escapeHtml(s.cat)}</span><h2>${escapeHtml(s.title)}</h2><p>${escapeHtml(s.desc)}</p><div class="story-detail">${escapeHtml(s.body)}</div><div class="story-foot"><span>Community confession · ${escapeHtml(s.author)}</span><span>Approved</span></div><div class="reaction-row">${reactions.map(r=>`<button class="reaction" data-id="${s.id}" data-reaction="${r}">${r} <span data-reaction-count="${s.id}|${r}">0</span></button>`).join("")}</div></article>`:`<a class="story" href="${s.url}" data-story-title="${s.title.replaceAll('"','&quot;')}" data-story-category="${s.cat}"><span class="tag">${s.cat}</span><h2>${s.title}</h2><p>${s.desc}</p><div class="story-foot"><span>Fictional story${s.adult?" · 18+":""}</span><span class="read">Read story →</span></div></a>`).join("")||`<div class="empty">No stories in this category yet. Check back as the archive grows.</div>`;
- feedEl.querySelectorAll("a[data-story-title]").forEach(link=>link.addEventListener("click",()=>{if(typeof gtag==="function")gtag("event","confession_open",{story_title:link.dataset.storyTitle,story_category:link.dataset.storyCategory})}));
+ feedEl.querySelectorAll("a[data-story-title]").forEach(link=>link.addEventListener("click",()=>{if(typeof gtag==="function"){const slug=link.getAttribute("href").split("/").pop().replace(/\.html$/,"");gtag("event","story_open",{story_slug:slug,story_category:link.dataset.storyCategory,source_page:location.pathname})}}));
  feedEl.querySelectorAll("button[data-reaction]").forEach(b=>b.addEventListener("click",async()=>{const key=`almost-reacted-${b.dataset.id}-${b.dataset.reaction}`;if(localStorage.getItem(key)){b.disabled=true;return}b.disabled=true;try{await db("confession_reactions",{method:"POST",body:JSON.stringify({confession_id:b.dataset.id,reaction:b.dataset.reaction})});localStorage.setItem(key,"1");const n=b.querySelector("span");n.textContent=Number(n.textContent)+1}catch(e){b.disabled=false;console.error(e)}}));
 }
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
@@ -199,8 +199,10 @@ render();loadCommunityStories();
  const supabaseUrl='https://uajkmfiuuljbnuawovma.supabase.co';
  const publishableKey='sb_publishable_gVCj4Z6JlPjWNwc7buKKmg_zaZTLU7r';
  const pdfUrl=location.pathname.includes('/confessions/')?'../assets/hinge-glow-up-guide.pdf':'assets/hinge-glow-up-guide.pdf';
- function open(){modal.hidden=false;modal.setAttribute('aria-hidden','false');status.textContent='';setTimeout(()=>emailInput.focus(),30)}
- function close(){modal.hidden=true;modal.setAttribute('aria-hidden','true')}
+ let opener=null,completed=false;
+ const track=(name,params={})=>{if(typeof window.gtag==='function')window.gtag('event',name,params)};
+ function open(event){opener=event.currentTarget;modal.hidden=false;modal.setAttribute('aria-hidden','false');status.textContent='';track('guide_popup_open',{source_page:location.pathname,cta_location:'page'});setTimeout(()=>emailInput.focus(),30)}
+ function close(){modal.hidden=true;modal.setAttribute('aria-hidden','true');if(opener)opener.focus()}
  document.querySelectorAll('[data-open-guide]').forEach(b=>b.addEventListener('click',open));
  modal.querySelectorAll('[data-guide-close]').forEach(b=>b.addEventListener('click',close));
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)close()});
@@ -208,16 +210,15 @@ render();loadCommunityStories();
    e.preventDefault();
    const email=emailInput.value.trim().toLowerCase();
    if(!email||!emailInput.checkValidity()){emailInput.reportValidity();return}
-   submit.disabled=true;status.textContent='Saving your email…';
+   submit.disabled=true;status.textContent='Saving your email…';track('guide_form_submit',{source_page:location.pathname});
    try{
      const response=await fetch(supabaseUrl+'/rest/v1/guide_leads',{method:'POST',headers:{apikey:publishableKey,Authorization:'Bearer '+publishableKey,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({email:email,source_page:location.pathname})});
      if(!response.ok)throw new Error('The email could not be saved.');
-     if(typeof gtag==='function')gtag('event','hinge_guide_download',{source_page:location.pathname});
-     status.textContent='Saved. Your guide is downloading…';
-     const a=document.createElement('a');a.href=pdfUrl;a.download='Almost-Hinge-Glow-Up-Guide.pdf';a.style.display='none';document.body.appendChild(a);a.click();a.remove();
-     setTimeout(close,900);
-   }catch(err){console.error(err);status.textContent='Could not save your email. Please try again in a moment.'}
-   finally{submit.disabled=false}
+     track('generate_lead',{source_page:location.pathname});completed=true;
+     status.textContent='Saved. If the download does not start, ';
+     const a=document.createElement('a');a.href=pdfUrl;a.download='Almost-Hinge-Glow-Up-Guide.pdf';a.textContent='download the guide';a.addEventListener('click',()=>track('guide_download',{file_name:'Almost-Hinge-Glow-Up-Guide.pdf',source_page:location.pathname}));status.appendChild(a);a.click();
+   }catch(err){console.error(err);status.textContent='Could not save your email. Please try again in a moment.';track('form_error',{form_name:'guide_email',error_type:'submission_failed',source_page:location.pathname})}
+   finally{if(!completed)submit.disabled=false}
  });
 })();
 </script>
@@ -228,7 +229,7 @@ render();loadCommunityStories();
  document.addEventListener('click',function(event){
   var el=event.target&&event.target.closest?event.target.closest('a,button,input[type="button"],input[type="submit"],[role="button"]'):null;
   if(!el||typeof window.gtag!=="function")return;
-  var text=(el.getAttribute('aria-label')||el.innerText||el.value||el.title||'').replace(/\s+/g,' ').trim().slice(0,100);
+  var text=(el.matches('a[data-story-title]')?'Open story':(el.getAttribute('aria-label')||el.innerText||el.value||el.title||'')).replace(/\s+/g,' ').trim().slice(0,100);
   var id=el.id||'';var cls=typeof el.className==='string'?el.className.slice(0,120):'';
   var href=el.tagName==='A'?(el.getAttribute('href')||''):'';
   window.gtag('event','ui_click',{element_text:text||'(no label)',element_id:id,element_class:cls,element_type:el.tagName.toLowerCase(),page_path:location.pathname,link_url:href,transport_type:'beacon'});
