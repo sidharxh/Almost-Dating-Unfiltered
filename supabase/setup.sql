@@ -20,17 +20,28 @@ create table if not exists public.confession_reactions (
   reaction text not null check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There')),
   created_at timestamptz not null default now()
 );
+-- Reactions for hand-authored static story pages, keyed by their URL slug.
+create table if not exists public.story_page_reactions (
+  id uuid primary key default gen_random_uuid(),
+  story_slug text not null check (story_slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),
+  reaction text not null check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There')),
+  created_at timestamptz not null default now()
+);
 create index if not exists confessions_status_created_idx on public.confessions(status, created_at desc);
 create index if not exists reactions_confession_idx on public.confession_reactions(confession_id);
+create index if not exists story_page_reactions_slug_idx on public.story_page_reactions(story_slug);
 
 alter table public.confessions enable row level security;
 alter table public.confession_reactions enable row level security;
+alter table public.story_page_reactions enable row level security;
 revoke all on public.confessions from anon, authenticated;
 revoke all on public.confession_reactions from anon, authenticated;
+revoke all on public.story_page_reactions from anon, authenticated;
 grant select on public.confessions to anon, authenticated;
 grant insert (title, category, author, body, status) on public.confessions to anon, authenticated;
 grant update (status) on public.confessions to anon, authenticated;
 grant select, insert on public.confession_reactions to anon, authenticated;
+grant select, insert on public.story_page_reactions to anon, authenticated;
 
 -- Open community review: pending submissions are visible on the public review page.
 drop policy if exists "Public can read confession queue" on public.confessions;
@@ -59,6 +70,13 @@ create policy "Public can add reactions to approved stories" on public.confessio
   for insert to anon, authenticated with check (
     exists (select 1 from public.confessions c where c.id = confession_id and c.status = 'approved')
   );
+drop policy if exists "Public can read static story reactions" on public.story_page_reactions;
+create policy "Public can read static story reactions" on public.story_page_reactions
+  for select to anon, authenticated using (true);
+drop policy if exists "Public can add static story reactions" on public.story_page_reactions;
+create policy "Public can add static story reactions" on public.story_page_reactions
+  for insert to anon, authenticated
+  with check (story_slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$');
 
 -- Keep no DELETE grant/policy. Avoid adding delete policies later unless product requirements change.
 
