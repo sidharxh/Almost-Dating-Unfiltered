@@ -1,6 +1,6 @@
 -- Almost public confession workflow. Run in Supabase SQL Editor.
--- Anonymous visitors can submit pending items and react. Only approved stories
--- are publicly readable; publishing requires an authenticated owner action.
+-- Anonymous visitors can submit and read stories. Anyone can approve a pending
+-- story by changing its status only; public clients cannot edit story text or delete rows.
 
 create extension if not exists pgcrypto;
 
@@ -29,19 +29,26 @@ revoke all on public.confessions from anon, authenticated;
 revoke all on public.confession_reactions from anon, authenticated;
 grant select on public.confessions to anon, authenticated;
 grant insert (title, category, author, body, status) on public.confessions to anon, authenticated;
+grant update (status) on public.confessions to anon, authenticated;
 grant select, insert on public.confession_reactions to anon, authenticated;
 
--- The public archive only reads approved stories. Pending submissions are private.
+-- Open community review: pending submissions are visible on the public review page.
 drop policy if exists "Public can read confession queue" on public.confessions;
 drop policy if exists "Public can read approved confessions" on public.confessions;
-create policy "Public can read approved confessions" on public.confessions
-  for select to anon, authenticated using (status = 'approved');
+drop policy if exists "Public can read all confessions for community review" on public.confessions;
+create policy "Public can read all confessions for community review" on public.confessions
+  for select to anon, authenticated using (true);
 
 drop policy if exists "Public can submit pending confessions" on public.confessions;
 create policy "Public can submit pending confessions" on public.confessions
   for insert to anon, authenticated with check (status = 'pending');
 
 drop policy if exists "Anyone can approve pending confessions" on public.confessions;
+drop policy if exists "Public can approve pending confessions" on public.confessions;
+create policy "Public can approve pending confessions" on public.confessions
+  for update to anon, authenticated
+  using (status = 'pending')
+  with check (status = 'approved');
 
 -- Public reaction totals are read by the archive. Reactions cannot be deleted or edited by clients.
 drop policy if exists "Public can read reactions" on public.confession_reactions;

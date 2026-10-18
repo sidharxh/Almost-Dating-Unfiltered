@@ -26,7 +26,7 @@ Measurement ID: G-WWJH2R0QS6. Do not add a second Google tag. Guide events are `
 
 SECURITY / PRIVACY NOTES
 - Only the Supabase publishable key belongs in browser code. Never use a service-role/secret key in this static site.
-- Public visitors can submit pending confessions, but can only read approved stories and cannot approve submissions. Review and publish submissions from the authenticated Supabase dashboard; `admin.html` is an informational page, not an admin console.
+- Public visitors can submit, read, and approve confessions from `admin.html`. Pending stories are visible to anyone. Public clients can change only `status` from `pending` to `approved`; they cannot edit story text or delete rows. Review the queue before approving.
 - Email requests can be inserted anonymously and cannot be read or modified through the public API. Add a full privacy policy and spam protection before collecting meaningful volumes of email addresses. The Hinge PDF remains publicly accessible by its static URL, so the email step is a UX gate, not file access control.
 
 Google may choose its own search title or snippet and does not guarantee indexing or ranking. Submit the sitemap in Google Search Console after publishing. Live Supabase inserts, browser download behavior, and GA4 reporting require testing in your deployed site/account.
