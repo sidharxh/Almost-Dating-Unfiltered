@@ -84,7 +84,7 @@ def main() -> None:
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)} | Almost</title><meta name="description" content="{e(description)}">
 <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="{url}">
-<meta property="og:type" content="article"><meta property="og:site_name" content="Almost — Dating, Unfiltered">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Almost — Unfiltered Dating">
 <meta property="og:title" content="{e(title)} | Almost"><meta property="og:description" content="{e(description)}"><meta property="og:url" content="{url}">
 <meta name="twitter:card" content="summary"><script type="application/ld+json">{json.dumps(article_json, ensure_ascii=False)}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WWJH2R0QS6"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-WWJH2R0QS6',{{page_title:document.title,page_location:location.href,page_path:location.pathname}});</script>
