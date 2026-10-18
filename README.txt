@@ -6,7 +6,7 @@ DESIGN / FLOW
 - Preserves the existing Almost site structure and content. Purple remains the primary color; pink is a restrained accent.
 - The free guide CTA opens an email popup. The PDF download is triggered only after Supabase confirms the email lead was saved. If the insert fails, the download does not happen and an error is shown.
 - Each static page load sends GA4's standard `page_view` with page_title, page_location, and page_path. All buttons and links are tracked by `ui_click` with element_text, element_id, element_class, element_type, page_title, page_path, and link_url. Form fields themselves are not tracked.
-- Approved community submissions appear in the archive, but they do not have their own indexable URL. To publish a story for search, create an editorial static page with the helper below.
+- Approved community submissions are turned into individual static HTML pages during the GitHub Pages build. The deploy workflow checks Supabase hourly and on every push; each generated page receives a canonical URL, unique description, Article structured data, GA4 tracking, and a sitemap entry.
 
 DEPLOY
 1. Unzip this folder and upload/commit its contents to the root of the existing GitHub Pages repository, replacing files with matching paths. Do not upload the ZIP itself.
@@ -20,6 +20,11 @@ PUBLISH A STATIC CONFESSION
 2. Run `python3 scripts/publish_confession.py path/to/story.json` from the repository root.
 3. Review the generated `confessions/<slug>.html`, archive card, and sitemap entry, then commit and push. GitHub Pages will serve the new static page after deployment.
 4. Keep the title and description accurate and specific; a category is a reader-facing topic label, not a list of keywords. Every story gets its own canonical URL, description, Open Graph metadata, and Article structured data.
+
+COMMUNITY STORY SEO DEPLOYMENT
+- `.github/workflows/deploy-pages.yml` builds and deploys the site on pushes to `main`, by manual dispatch, and hourly. It reads only approved rows using the site's public Supabase publishable key; no service-role key or GitHub token is used to publish content from the browser.
+- The build generates `/confessions/<title>-<id>.html` pages, adds them to the sitemap, and embeds their cards into the static archive before deployment. Approval-to-search-page publication can take up to one hour.
+- The Pages publishing source must be set to GitHub Actions. After the first workflow run, check the deployment and submit `https://almostunfiltereddating.com/sitemap.xml` in Google Search Console. A sitemap helps discovery but does not guarantee indexing.
 
 GA4
 Measurement ID: G-WWJH2R0QS6. Do not add a second Google tag. Guide events are `guide_popup_open`, `guide_form_submit`, `generate_lead` (only after Supabase success), `guide_download`, and `form_error`. Story clicks use `story_open` with a slug and category; email addresses and story titles are not sent to GA4. Validate events in Tag Assistant and GA4 DebugView before relying on reports.
