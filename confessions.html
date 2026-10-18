@@ -202,7 +202,7 @@ render();loadCommunityStories();
  let opener=null,completed=false;
  const track=(name,params={})=>{if(typeof window.gtag==='function')window.gtag('event',name,params)};
  function open(event){opener=event.currentTarget;modal.hidden=false;modal.setAttribute('aria-hidden','false');status.textContent='';track('guide_popup_open',{source_page:location.pathname,cta_location:'page'});setTimeout(()=>emailInput.focus(),30)}
- function close(){modal.hidden=true;modal.setAttribute('aria-hidden','true');if(opener)opener.focus()}
+ function close(){modal.hidden=true;modal.setAttribute('aria-hidden','true');if(opener&&opener.isConnected)requestAnimationFrame(()=>opener.focus())}
  document.querySelectorAll('[data-open-guide]').forEach(b=>b.addEventListener('click',open));
  modal.querySelectorAll('[data-guide-close]').forEach(b=>b.addEventListener('click',close));
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)close()});
