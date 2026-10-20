@@ -146,6 +146,7 @@ def render_story(row: dict[str, object], slug: str, description: str) -> str:
     }
     data = json.dumps(schema, ensure_ascii=False).replace("</", "<\\/")
     story_id = escape(row.get("id"))
+    story_slug = escape(slug)
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)} | Unfiltered Dating</title><meta name="description" content="{escape(description)}">
