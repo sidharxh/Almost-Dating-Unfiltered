@@ -2,9 +2,12 @@
 create table if not exists public.story_page_reactions (
   id uuid primary key default gen_random_uuid(),
   story_slug text not null check (story_slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),
-  reaction text not null check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There')),
+  reaction text not null check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There','Hot','Emotional','Surprising')),
   created_at timestamptz not null default now()
 );
+alter table public.story_page_reactions drop constraint if exists story_page_reactions_reaction_check;
+alter table public.story_page_reactions add constraint story_page_reactions_reaction_check
+  check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There','Hot','Emotional','Surprising'));
 create index if not exists story_page_reactions_slug_idx on public.story_page_reactions (story_slug);
 alter table public.story_page_reactions enable row level security;
 revoke all on public.story_page_reactions from anon, authenticated;

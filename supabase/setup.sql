@@ -17,14 +17,14 @@ create table if not exists public.confessions (
 create table if not exists public.confession_reactions (
   id uuid primary key default gen_random_uuid(),
   confession_id uuid not null references public.confessions(id) on delete restrict,
-  reaction text not null check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There')),
+  reaction text not null check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There','Hot','Emotional','Surprising')),
   created_at timestamptz not null default now()
 );
 -- Reactions for hand-authored static story pages, keyed by their URL slug.
 create table if not exists public.story_page_reactions (
   id uuid primary key default gen_random_uuid(),
   story_slug text not null check (story_slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),
-  reaction text not null check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There')),
+  reaction text not null check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There','Hot','Emotional','Surprising')),
   created_at timestamptz not null default now()
 );
 create index if not exists confessions_status_created_idx on public.confessions(status, created_at desc);
@@ -79,6 +79,7 @@ create policy "Public can add static story reactions" on public.story_page_react
   with check (story_slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$');
 
 -- Keep no DELETE grant/policy. Avoid adding delete policies later unless product requirements change.
+-- Apply supabase/story_comments.sql to enable story discussions and comment review.
 
 
 -- Email gate for the free Hinge guide

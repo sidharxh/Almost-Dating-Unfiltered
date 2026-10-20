@@ -20,6 +20,11 @@
 <div class="toolbar"><span id="queue-count" class="meta" aria-live="polite">Loading submissions…</span><button id="refresh" type="button">Refresh</button></div>
 <div id="queue" class="queue" aria-live="polite"></div>
 <p id="status" class="status" role="status" aria-live="polite"></p>
+<h2>Pending story comments</h2>
+<p class="intro">Comments appear on a story after approval.</p>
+<div class="toolbar"><span id="comment-count" class="meta" aria-live="polite">Loading comments…</span><button id="refresh-comments" type="button">Refresh comments</button></div>
+<div id="comment-queue" class="queue" aria-live="polite"></div>
+<p id="comment-status" class="status" role="status" aria-live="polite"></p>
 </main>
 <footer><a href="confessions.html">← Back to confessions</a></footer>
 </div>
@@ -63,6 +68,15 @@
    finally{refresh.disabled=false;}
  }
  refresh.addEventListener('click',load);load();
+})();
+</script>
+<script>
+(()=>{
+ const api='https://uajkmfiuuljbnuawovma.supabase.co/rest/v1',key='sb_publishable_gVCj4Z6JlPjWNwc7buKKmg_zaZTLU7r';
+ const queue=document.getElementById('comment-queue'),count=document.getElementById('comment-count'),status=document.getElementById('comment-status'),refresh=document.getElementById('refresh-comments'),headers={apikey:key,'Content-Type':'application/json'};
+ const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node};
+ async function loadComments(){refresh.disabled=true;queue.replaceChildren();status.textContent='';count.textContent='Loading comments…';try{const response=await fetch(`${api}/story_comments?select=id,story_slug,author_label,body,created_at&status=eq.pending&order=created_at.asc&limit=100`,{headers});if(!response.ok)throw new Error(await response.text());const rows=await response.json();count.textContent=`${rows.length} pending ${rows.length===1?'comment':'comments'}`;if(!rows.length){queue.append(el('div','empty','There are no pending comments.'));return}rows.forEach(row=>{const card=el('article','submission'),title=el('h3','',row.author_label||'Anonymous'),story=el('p','meta','Story: '+row.story_slug),body=el('p','story',row.body),actions=el('div','actions'),approve=el('button','approve','Approve comment'),state=el('span','meta','');approve.type='button';approve.addEventListener('click',async()=>{approve.disabled=true;state.textContent='Approving…';try{const result=await fetch(`${api}/story_comments?id=eq.${encodeURIComponent(row.id)}&status=eq.pending`,{method:'PATCH',headers:{...headers,Prefer:'return=minimal'},body:JSON.stringify({status:'approved'})});if(!result.ok)throw new Error(await result.text());card.remove();const remaining=queue.querySelectorAll('.submission').length;count.textContent=`${remaining} pending ${remaining===1?'comment':'comments'}`;status.textContent='Comment approved.';if(!remaining)queue.append(el('div','empty','There are no pending comments.'))}catch(error){state.textContent='Could not approve. Refresh and try again.';approve.disabled=false}});actions.append(approve,state);card.append(title,story,body,actions);queue.append(card)})}catch(error){count.textContent='Could not load comments';queue.append(el('div','empty error','The comment list could not be loaded. Check the connection and refresh.'))}finally{refresh.disabled=false}}
+ refresh.addEventListener('click',loadComments);loadComments();
 })();
 </script>
 </body>
