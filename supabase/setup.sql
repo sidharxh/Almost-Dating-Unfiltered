@@ -17,7 +17,7 @@ create table if not exists public.confessions (
 create table if not exists public.confession_reactions (
   id uuid primary key default gen_random_uuid(),
   confession_id uuid not null references public.confessions(id) on delete restrict,
-  reaction text not null check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There')),
+  reaction text not null check (reaction in ('Relatable','Plot Twist','Green Flag','Red Flag','Been There','Hot','Emotional','Surprising')),
   created_at timestamptz not null default now()
 );
 -- Reactions for hand-authored static story pages, keyed by their URL slug.
@@ -79,6 +79,9 @@ create policy "Public can add static story reactions" on public.story_page_react
   with check (story_slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$');
 
 -- Keep no DELETE grant/policy. Avoid adding delete policies later unless product requirements change.
+
+-- After this initial setup, apply supabase/story_experience.sql for the
+-- story page polls, discussion, interaction log, favorites and image bucket.
 
 
 -- Email gate for the free Hinge guide
