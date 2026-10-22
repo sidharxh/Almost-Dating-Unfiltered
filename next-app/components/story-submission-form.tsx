@@ -7,10 +7,12 @@ export default function StorySubmissionForm() {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+  const [adultConsent, setAdultConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "saving" | "success" | "failed">("idle");
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!adultConsent) return;
     setStatus("saving");
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
@@ -26,6 +28,7 @@ export default function StorySubmissionForm() {
       setTitle("");
       setCategory("");
       setDescription("");
+      setAdultConsent(false);
     } catch (error) {
       console.warn("Story submission could not be saved.", error instanceof Error ? error.message : "Unknown error");
       setStatus("failed");
@@ -39,6 +42,7 @@ export default function StorySubmissionForm() {
         <label className="form-field"><span>Title</span><input required maxLength={110} value={title} onChange={(event) => setTitle(event.target.value)} placeholder="Give your story a title" /></label>
         <label className="form-field"><span>Category</span><select required value={category} onChange={(event) => setCategory(event.target.value)}><option value="" disabled>Choose a category</option>{STORY_CATEGORIES.map((item) => <option key={item.slug} value={item.label}>{item.label}</option>)}</select></label>
         <label className="form-field"><span>Description</span><textarea required minLength={80} maxLength={8000} rows={12} value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Tell us what happened, in your own words…" /><small className="field-count">{description.length} / 8,000 characters</small></label>
+        <label className="consent-field"><input type="checkbox" required checked={adultConsent} onChange={(event) => setAdultConsent(event.target.checked)} /><span>I confirm I’m 18 or older and consent to my story being reviewed for anonymous publication.</span></label>
         <button className="form-submit" type="submit" disabled={status === "saving"}>{status === "saving" ? "Submitting…" : "Submit your story"}</button>
         <p className="interaction-status" role="status" aria-live="polite">{status === "success" ? "Your story has been submitted for review." : status === "failed" ? "We couldn’t submit your story. Please try again." : "Your story will appear after review."}</p>
       </form>
