@@ -7,12 +7,39 @@ create extension if not exists pgcrypto;
 create table if not exists public.confessions (
   id uuid primary key default gen_random_uuid(),
   title text not null check (char_length(title) between 3 and 110),
-  category text not null check (category in ('First dates','Ghosting','Situationships','Dating disasters','Green flags','Breakups & exes','Secret crushes','LGBTQ+ dating','Intimacy & 18+')),
+  category text not null check (category in ('Cheating & Betrayal','Open Relationships & Wife Swapping','Jealousy & Cuckold Dynamics','Secret Affairs','Unexpected Attraction','Situationships & Mixed Signals','First Dates & Dangerous Chemistry','Exes, Rebounds & Old Flames','Confessions & Regrets')),
   author text not null default 'Anonymous' check (char_length(author) between 1 and 40),
   body text not null check (char_length(body) between 80 and 8000),
   status text not null default 'pending' check (status in ('pending','approved')),
   created_at timestamptz not null default now()
 );
+
+-- Keep existing installations on the current story taxonomy too.
+alter table public.confessions drop constraint if exists confessions_category_check;
+update public.confessions
+set category = case category
+  when 'First dates' then 'First Dates & Dangerous Chemistry'
+  when 'Ghosting' then 'Confessions & Regrets'
+  when 'Situationships' then 'Situationships & Mixed Signals'
+  when 'Dating disasters' then 'Confessions & Regrets'
+  when 'Green flags' then 'Unexpected Attraction'
+  when 'Breakups & exes' then 'Exes, Rebounds & Old Flames'
+  when 'Secret crushes' then 'Secret Affairs'
+  when 'LGBTQ+ dating' then 'Unexpected Attraction'
+  when 'Intimacy & 18+' then 'Confessions & Regrets'
+  else category
+end
+where category not in (
+  'Cheating & Betrayal','Open Relationships & Wife Swapping','Jealousy & Cuckold Dynamics',
+  'Secret Affairs','Unexpected Attraction','Situationships & Mixed Signals',
+  'First Dates & Dangerous Chemistry','Exes, Rebounds & Old Flames','Confessions & Regrets'
+);
+alter table public.confessions add constraint confessions_category_check
+  check (category in (
+    'Cheating & Betrayal','Open Relationships & Wife Swapping','Jealousy & Cuckold Dynamics',
+    'Secret Affairs','Unexpected Attraction','Situationships & Mixed Signals',
+    'First Dates & Dangerous Chemistry','Exes, Rebounds & Old Flames','Confessions & Regrets'
+  ));
 
 create table if not exists public.confession_reactions (
   id uuid primary key default gen_random_uuid(),
