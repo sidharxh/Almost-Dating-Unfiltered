@@ -8,7 +8,22 @@ export const metadata: Metadata = {
     template: "%s | Almost — Unfiltered Dating",
   },
   description:
-    "Intimate dating confessions and story-based roleplay for adults.",
+    "Anonymous dating confessions about betrayal, attraction, mixed signals, and the moments people rarely say out loud.",
+  applicationName: "Almost — Unfiltered Dating",
+  keywords: ["dating confessions", "anonymous dating stories", "relationship confessions", "dating stories"],
+  openGraph: {
+    type: "website",
+    siteName: "Almost — Unfiltered Dating",
+    title: "Almost — Unfiltered Dating",
+    description: "Anonymous dating confessions, told straight.",
+    url: "https://almostunfiltereddating.com/",
+  },
+  twitter: {
+    card: "summary",
+    title: "Almost — Unfiltered Dating",
+    description: "Anonymous dating confessions, told straight.",
+  },
+  icons: { icon: "/icon.svg" },
   robots: { index: true, follow: true },
 };
 
