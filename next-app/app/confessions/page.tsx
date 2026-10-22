@@ -1,20 +1,32 @@
 import type { Metadata } from "next";
-import { getStories, storyPath } from "@/lib/stories";
 import { STORY_CATEGORIES } from "@/lib/categories";
+import { getStories, storyPath } from "@/lib/stories";
 
 export const metadata: Metadata = {
-  title: "Anonymous Dating Confessions",
-  description: "Browse anonymous dating confessions across betrayal, affairs, mixed signals, first dates, and more.",
+  title: "Dating Confessions & Roleplay Stories",
+  description: "Browse anonymous dating confessions by category. Choose a story, select a perspective, and step into the scene.",
   alternates: { canonical: "https://almostunfiltereddating.com/confessions" },
 };
 
 export default async function ConfessionsPage() {
   const stories = await getStories();
+  const grouped = STORY_CATEGORIES
+    .map((category) => ({ category, stories: stories.filter((story) => story.category === category.label) }))
+  let itemPosition = 0;
+  const itemList = {
+    "@context": "https://schema.org", "@type": "ItemList", name: "Dating confessions by category",
+    itemListElement: grouped.flatMap(({ category, stories: categoryStories }) => categoryStories.map((story) => ({
+      "@type": "ListItem", position: ++itemPosition, name: story.title, url: `https://almostunfiltereddating.com${storyPath(story)}`, item: { "@type": "Article", articleSection: category.label },
+    }))),
+  };
   return <main className="listing-shell">
-    <header className="story-nav"><a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a><a className="back-link" href="/">Home</a></header>
-    <section className="listing-hero"><p className="story-kicker">Unfiltered Dating</p><h1>Dating confessions</h1><p>Anonymous stories about attraction, betrayal, mixed signals, and the moments that changed a relationship.</p></section>
-    <nav className="listing-categories" aria-label="Browse confession categories">{STORY_CATEGORIES.map((category) => <a key={category.slug} href={`/categories/${category.slug}`}>{category.label}</a>)}</nav>
-    {stories.length ? <div className="story-cards listing-cards">{stories.map((story) => <a className="story-list-card" href={storyPath(story)} key={story.id}><span className="category-pill">{story.category}</span><h2>{story.title}</h2><p>{story.summary}</p><span className="card-link">Read confession →</span></a>)}</div> : <p className="empty-stories">No published confessions in this category yet.</p>}
-    <footer className="story-footer"><a href="/submit-story">Share your confession</a><span>Almost · Unfiltered Dating</span></footer>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList).replace(/</g, "\\u003c") }} />
+    <header className="story-nav"><a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a><nav className="simple-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/submit-story">Share a story</a></nav></header>
+    <section className="listing-hero"><p className="story-kicker">Unfiltered Dating · Pick a perspective</p><h1>Confessions to step into.</h1><p>Browse by category, choose a story, then take a role in the scene.</p></section>
+    {grouped.length ? <div className="confession-category-groups">{grouped.map(({ category, stories: categoryStories }) => <section className="confession-category-group" id={category.slug} key={category.slug} aria-labelledby={`${category.slug}-title`}>
+      <div className="section-heading"><h2 id={`${category.slug}-title`}><a href={`/categories/${category.slug}`}>{category.label}</a></h2><span>{categoryStories.length} {categoryStories.length === 1 ? "confession" : "confessions"}</span></div>
+      {categoryStories.length ? <div className="story-cards">{categoryStories.map((story) => <a className="story-list-card" href={storyPath(story)} key={story.id}><h3>{story.title}</h3><p>{story.summary}</p><span className="card-link">Read and take a role →</span></a>)}</div> : <p className="category-empty">No published confessions in this category yet.</p>}
+    </section>)}</div> : <p className="empty-stories">Published confessions will appear here.</p>}
+    <footer className="story-footer"><a href="/">Home</a><a href="/submit-story">Share your confession</a><span>Almost · Unfiltered Dating</span></footer>
   </main>;
 }

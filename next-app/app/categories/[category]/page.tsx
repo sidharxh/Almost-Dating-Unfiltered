@@ -12,10 +12,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category: slug } = await params;
   const category = STORY_CATEGORIES.find((entry) => entry.slug === slug);
   if (!category) return { title: "Category not found", robots: { index: false, follow: false } };
+  const categoryStories = (await getStories()).filter((story) => story.category === category.label);
   return {
     title: `${category.label} Dating Confessions`,
     description: `Read anonymous dating confessions about ${category.tags.join(", ")}. Explore ${category.label.toLowerCase()} stories at Almost — Unfiltered Dating.`,
     alternates: { canonical: `${siteUrl}/categories/${category.slug}` },
+    keywords: ["dating confessions", "anonymous dating stories", category.label, ...category.tags],
+    robots: categoryStories.length ? undefined : { index: false, follow: true },
     openGraph: { type: "website", title: `${category.label} Dating Confessions`, description: `Anonymous stories about ${category.tags.join(", ")}.`, url: `${siteUrl}/categories/${category.slug}`, siteName: "Almost — Unfiltered Dating" },
   };
 }

@@ -32,6 +32,14 @@ function categoryLabel(value: string | null) {
     ?? "Confessions & Regrets";
 }
 
+function seoSummary(value: string) {
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (normalized.length <= 155) return normalized;
+  const shortened = normalized.slice(0, 152);
+  const lastSpace = shortened.lastIndexOf(" ");
+  return `${shortened.slice(0, lastSpace > 100 ? lastSpace : 152).trimEnd()}…`;
+}
+
 export async function getStories(): Promise<Story[]> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
@@ -58,7 +66,7 @@ export async function getStories(): Promise<Story[]> {
       if (usedSlugs.has(slug)) slug = `${slug}-${row.id.slice(0, 8)}`;
       usedSlugs.add(slug);
       const body = row.body ?? "";
-      const summary = row.story_summary?.trim() || body.replace(/\s+/g, " ").slice(0, 190).trim();
+      const summary = seoSummary(row.story_summary?.trim() || body);
       return {
         id: row.id,
         slug,
