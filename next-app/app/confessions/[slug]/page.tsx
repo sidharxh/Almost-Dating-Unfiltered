@@ -39,7 +39,7 @@ export default async function ConfessionPage({ params }: PageProps) {
   return (
     <main className="story-shell">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
-      <header className="story-nav"><a className="brand" href="/" aria-label="Almost — Unfiltered Dating">a<span>.</span></a><a className="back-link" href="/confessions">All confessions</a></header>
+      <header className="story-nav"><a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a><a className="back-link" href="/confessions">All confessions</a></header>
       <section className="story-hero" aria-labelledby="story-title">
         <p className="story-kicker">{story.category} · Unfiltered Dating</p>
         <h1 id="story-title">{story.title}</h1>
