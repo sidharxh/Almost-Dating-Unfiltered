@@ -73,11 +73,12 @@ h1 {
 .roleplay-description { color: var(--muted); font-size: 14px; line-height: 1.7; }
 .choice-label { margin: 26px 0 10px; color: #e8dce9; font-size: 12px; font-weight: 700; }
 .perspective-options { display: grid; gap: 10px; }
-.perspective-option { display: grid; grid-template-columns: 38px 1fr; column-gap: 11px; align-items: center; padding: 13px; border: 1px solid var(--line); border-radius: 13px; background: #100d16a8; color: var(--foreground); text-align: left; cursor: pointer; }
+.perspective-option { display: grid; grid-template-columns: 42px 1fr 22px; column-gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: #100d16a8; color: var(--foreground); text-align: left; cursor: pointer; }
 .perspective-option:hover,.perspective-option.is-selected { border-color: var(--accent); background: #351d31; }
-.character-initial { grid-row: span 2; display: grid; width: 36px; height: 36px; place-items: center; border-radius: 50%; background: #43243d; color: #ffc6df; font: 17px Georgia,serif; }
+.character-initial { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 50%; background: #43243d; color: #ffc6df; font: 18px Georgia,serif; }
 .character-name { font-size: 13px; font-weight: 700; }
-.character-cue { margin-top: 3px; color: var(--muted); font-size: 11px; }
+.perspective-check { color: #25111e; font-size: 13px; font-weight: 900; }
+.perspective-option.is-selected .perspective-check { display: grid; width: 21px; height: 21px; place-items: center; border-radius: 50%; background: var(--accent); }
 .start-roleplay { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 14px 17px; border: 0; border-radius: 999px; background: linear-gradient(100deg,#ff8cc4,#ec4b9b); color: #23111e; font-weight: 800; cursor: pointer; }
 .start-roleplay:disabled { background: #493043; color: #b7a6b5; cursor: not-allowed; }
 .prototype-status { min-height: 34px; margin: 12px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
@@ -129,7 +130,7 @@ h1 {
 .coming-soon-dialog h3 { margin: 12px 0 8px; font: 500 clamp(28px,7vw,38px)/1.12 Georgia,serif; }
 .coming-soon-dialog > p:not(.roleplay-eyebrow) { color: #d0c5d6; font-size: 14px; line-height: 1.7; }
 .interaction-status { min-height: 20px; margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
-.perspective-option { min-height: 86px; }
+.perspective-option { min-height: 72px; }
 .perspective-option .character-name { grid-column: 2; }
 .home-shell,.listing-shell { width: min(100% - 44px, 1180px); margin-inline: auto; }
 .home-nav { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); }

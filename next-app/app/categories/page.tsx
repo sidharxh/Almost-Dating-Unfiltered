@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function CategoriesPage() {
   const stories = await getStories();
   return <main className="listing-shell">
-    <header className="story-nav"><a className="brand" href="/">Almost<span>.</span></a><a className="back-link" href="/confessions">All confessions</a></header>
+    <header className="story-nav"><a className="brand" href="/" aria-label="Almost — Unfiltered Dating">a<span>.</span></a><a className="back-link" href="/confessions">All confessions</a></header>
     <section className="listing-hero"><p className="story-kicker">Browse by category</p><h1>Find your kind of story.</h1><p>Explore dating confessions by the choices, complications, and connections at their center.</p></section>
     <div className="category-directory">{STORY_CATEGORIES.map((category) => {
       const categoryStories = stories.filter((story) => story.category === category.label);

@@ -39,7 +39,7 @@ export default async function ConfessionPage({ params }: PageProps) {
   return (
     <main className="story-shell">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
-      <header className="story-nav"><a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a><a className="back-link" href="/confessions">All confessions</a></header>
+      <header className="story-nav"><a className="brand" href="/" aria-label="Almost — Unfiltered Dating">a<span>.</span></a><a className="back-link" href="/confessions">All confessions</a></header>
       <section className="story-hero" aria-labelledby="story-title">
         <p className="story-kicker">{story.category} · Unfiltered Dating</p>
         <h1 id="story-title">{story.title}</h1>
@@ -53,9 +53,9 @@ export default async function ConfessionPage({ params }: PageProps) {
           {paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         </article>
         <aside id="story-roleplay" className="roleplay-card" aria-labelledby="roleplay-title">
-          <p className="roleplay-eyebrow">Unfiltered Dating</p>
-          <h2 id="roleplay-title">Step into the story</h2>
-          <p className="roleplay-description">Choose a perspective and start a conversation in the world of this confession.</p>
+          <p className="roleplay-eyebrow">YOUR TURN</p>
+          <h2 id="roleplay-title">Join the story</h2>
+          <p className="roleplay-description">Choose whose perspective you want to take, then start.</p>
           <RoleplayPanel storySlug={story.slug} storyCategory={story.category} />
           <p className="roleplay-boundary">For adults 18+ · Keep interactions respectful.</p>
         </aside>

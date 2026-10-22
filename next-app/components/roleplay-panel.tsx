@@ -30,13 +30,14 @@ export default function RoleplayPanel({ storySlug, storyCategory }: RoleplayPane
 
   return (
     <div className="roleplay-start">
-      <p className="choice-label">What gender would you like to roleplay as in this story?</p>
+      <p className="choice-label">Choose your perspective</p>
       <div className="perspective-options" role="group" aria-label="Choose a perspective">
         {(["woman", "man"] as const).map((choice) => (
           <button className={`perspective-option${perspective === choice ? " is-selected" : ""}`} type="button" key={choice}
             aria-pressed={perspective === choice} onClick={() => { setPerspective(choice); setStatus("idle"); }}>
             <span className="character-initial" aria-hidden="true">{choice === "woman" ? "W" : "M"}</span>
             <span className="character-name">{choice === "woman" ? "Woman’s perspective" : "Man’s perspective"}</span>
+            <span className="perspective-check" aria-hidden="true">{perspective === choice ? "✓" : ""}</span>
           </button>
         ))}
       </div>
@@ -44,7 +45,7 @@ export default function RoleplayPanel({ storySlug, storyCategory }: RoleplayPane
         {status === "saving" ? "Starting…" : "Start roleplay"}<span aria-hidden="true">→</span>
       </button>
       <p className="interaction-status" role="status" aria-live="polite">
-        {status === "saved" ? "Your selection is recorded." : status === "failed" ? "We couldn’t save that selection. Please try again." : "Choose a perspective to continue."}
+        {status === "saved" ? "Your choice has been saved." : status === "failed" ? "We couldn’t save your choice. Please try again." : "Select one, then start."}
       </p>
     </div>
   );

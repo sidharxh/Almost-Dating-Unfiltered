@@ -11,8 +11,8 @@ export default function SubmitStoryPage() {
   return (
     <main className="submit-shell">
       <header className="story-nav">
-        <a className="brand" href="/" aria-label="Almost home">
-          Almost<span>.</span>
+        <a className="brand" href="/" aria-label="Almost — Unfiltered Dating">
+          a<span>.</span>
         </a>
         <a className="back-link" href="/confessions">Browse confessions</a>
       </header>

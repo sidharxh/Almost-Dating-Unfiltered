@@ -15,7 +15,7 @@ export default async function HomePage() {
   return (
     <main className="home-shell">
       <header className="home-nav">
-        <a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a>
+        <a className="brand" href="/" aria-label="Almost — Unfiltered Dating">a<span>.</span></a>
         <nav aria-label="Main navigation"><a href="/confessions">Confessions</a><a href="/categories">Categories</a><a href="/submit-story">Share a story</a><a href="#hinge-guide">Hinge guide</a></nav>
       </header>
       <section className="home-hero">
@@ -37,7 +37,7 @@ export default async function HomePage() {
         <GuideDownloadForm sourcePage="/" />
       </section>
       <section className="share-callout"><div><p className="story-kicker">Your story belongs here</p><h2>Something happened. Tell it straight.</h2><p>Share your dating confession anonymously. Every story is reviewed before it appears.</p></div><a className="primary-link" href="/submit-story">Share a story <span aria-hidden="true">→</span></a></section>
-      <footer className="site-footer"><a className="brand" href="/">Almost<span>.</span></a><span>Unfiltered Dating</span><a href="/confessions">Confessions</a><a href="/categories">Categories</a><a href="/submit-story">Submit a story</a></footer>
+      <footer className="site-footer"><a className="brand" href="/" aria-label="Almost — Unfiltered Dating">a<span>.</span></a><span>Unfiltered Dating</span><a href="/confessions">Confessions</a><a href="/categories">Categories</a><a href="/submit-story">Submit a story</a></footer>
     </main>
   );
 }
