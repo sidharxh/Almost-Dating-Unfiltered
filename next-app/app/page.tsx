@@ -5,18 +5,16 @@ import GuideDownloadForm from "@/components/guide-download-form";
 import StoryImageViewer from "@/components/story-image-viewer";
 
 export const metadata: Metadata = {
-  title: "Dating Confessions by Category",
-  description: "Browse anonymous dating confessions by category, including betrayal, secret affairs, mixed signals, first dates, and more.",
+  title: "Dating Confessions, Unfiltered",
+  description: "Read anonymous dating confessions about attraction, betrayal, mixed signals, and complicated relationships. Choose a story and its perspective.",
   alternates: { canonical: "https://almostunfiltereddating.com/" },
 };
 
 export default async function HomePage() {
   const stories = await getStories();
-  const featuredByCategory = STORY_CATEGORIES
-    .map((category) => ({ category, stories: stories.filter((story) => story.category === category.label).slice(0, 2) }))
-    .filter((entry) => entry.stories.length > 0)
+  const featuredStories = STORY_CATEGORIES
+    .flatMap((category) => stories.find((story) => story.category === category.label) ?? [])
     .slice(0, 6);
-  const featuredStories = featuredByCategory.flatMap(({ stories: categoryStories }) => categoryStories);
   const structuredData = {
     "@context": "https://schema.org", "@graph": [
       { "@type": "WebSite", name: "Almost — Unfiltered Dating", url: "https://almostunfiltereddating.com/" },
@@ -32,22 +30,31 @@ export default async function HomePage() {
         <nav aria-label="Main navigation"><a href="/confessions">Confessions</a><a href="#hinge-guide">Free Hinge guide</a><a className="home-share-link" href="#share-story">Share a story</a></nav>
       </header>
       <section className="home-hero home-hero-compact">
-        <p className="story-kicker">Unfiltered Dating</p>
-        <h1>Dating confessions,<br /><em>by category.</em></h1>
-        <p className="home-intro">Read the stories people usually keep to themselves.</p>
+        <div className="home-hero-copy"><p className="story-kicker">Anonymous stories · Unfiltered Dating</p>
+          <h1>Dating confessions.<br /><em>Choose a side.</em></h1>
+          <p className="home-intro">Read a story, choose whose perspective to take, and step into the moment.</p>
+          <div className="home-actions"><a className="primary-link" href="/confessions">Browse confessions <span aria-hidden="true">→</span></a><a className="secondary-link" href="#story-categories">Explore categories</a></div>
+        </div>
+        <aside className="home-hero-note" aria-label="How to explore stories"><span className="hero-note-number">01 — 03</span><ol><li><span>01</span> Pick a category</li><li><span>02</span> Open a confession</li><li><span>03</span> Choose a perspective</li></ol><a href="/confessions">Start reading <span aria-hidden="true">↗</span></a></aside>
       </section>
-      <section className="home-featured" aria-labelledby="featured-title">
-        <div className="section-heading"><div><p className="story-kicker">A place to start</p><h2 id="featured-title">Confessions to read</h2></div><a href="/confessions">Browse all confessions →</a></div>
-        {featuredByCategory.length ? <div className="home-featured-groups">{featuredByCategory.map(({ category, stories: categoryStories }) => (
-          <section className="home-featured-group" key={category.slug}>
-            <h3><a href={`/categories/${category.slug}`}>{category.label}<span aria-hidden="true">↗</span></a></h3>
-            <div className="home-featured-stories">{categoryStories.map((story) => <article className="home-featured-story" key={story.id}>
+      <section id="story-categories" className="home-category-section" aria-labelledby="category-title">
+        <div className="section-heading"><div><p className="story-kicker">Choose what you want to read</p><h2 id="category-title">Explore confessions</h2></div><a href="/categories">View every topic →</a></div>
+        <div className="home-category-grid">{STORY_CATEGORIES.map((category, index) => {
+          const count = stories.filter((story) => story.category === category.label).length;
+          return <a className="home-category-card" href={`/categories/${category.slug}`} key={category.slug}><span className="home-category-index">{String(index + 1).padStart(2, "0")}</span><strong>{category.label}</strong><small className="home-category-tease">{category.description}</small><span className="home-category-meta">{count > 0 ? `${count} ${count === 1 ? "confession" : "confessions"}` : "Read this topic"}<span aria-hidden="true">↗</span></span></a>;
+        })}</div>
+      </section>
+      {featuredStories.length > 0 && <section className="home-featured" aria-labelledby="featured-title">
+        <div className="section-heading"><div><p className="story-kicker">Start reading</p><h2 id="featured-title">A few confessions to begin with</h2></div><a href="/confessions">Browse every confession →</a></div>
+        <div className="home-featured-grid">{featuredStories.map((story) => (
+          <article className="home-featured-card" key={story.id}>
               {story.coverImageUrl && <StoryImageViewer src={story.coverImageUrl} alt={story.coverImageAlt} variant="card" />}
-              <a className="home-featured-story-link" href={storyPath(story)}><strong>{story.title}</strong><span>{story.summary}</span><small>Read confession →</small></a>
-            </article>)}</div>
-          </section>
-        ))}</div> : <p className="empty-stories">Published confessions will appear here.</p>}
-      </section>
+              <div className="home-featured-card-copy"><span className="category-pill">{story.category}</span>
+                <a className="home-featured-story-link" href={storyPath(story)}><strong>{story.title}</strong><span>{story.summary}</span><small>Read confession →</small></a>
+              </div>
+          </article>
+        ))}</div>
+      </section>}
       <section id="hinge-guide" className="guide-section">
         <div className="guide-copy">
           <p className="story-kicker">FREE HINGE PROFILE GUIDE</p>
