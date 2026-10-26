@@ -7,7 +7,6 @@ type RoleplayPanelProps = { storySlug: string; storyCategory: string };
 export default function RoleplayPanel({ storySlug, storyCategory }: RoleplayPanelProps) {
   const [perspective, setPerspective] = useState<"woman" | "man" | null>(null);
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "failed">("idle");
-  const [expanded, setExpanded] = useState(false);
 
   async function startRoleplay() {
     if (!perspective || status === "saving") return;
@@ -30,31 +29,31 @@ export default function RoleplayPanel({ storySlug, storyCategory }: RoleplayPane
   }
 
   return (
-    <div className="roleplay-inline" id="roleplay-action">
-      <p className="roleplay-inline-prompt">Want to take a role in this story?{" "}
-        <button className="roleplay-inline-trigger" type="button" aria-expanded={expanded} onClick={() => setExpanded((open) => !open)}>
-          {expanded ? "Close choices" : "Choose a perspective"}<span aria-hidden="true">{expanded ? " ×" : " →"}</span>
-        </button>
-      </p>
-      {expanded && <div className="roleplay-start">
-        <p className="choice-label">Which perspective would you like?</p>
-        <div className="perspective-options" role="group" aria-label="Choose a perspective">
+    <section className="roleplay-box" id="roleplay-action" aria-labelledby="roleplay-title">
+      <div className="roleplay-box-heading">
+        <p className="story-kicker">Roleplay this confession</p>
+        <h2 id="roleplay-title">Choose who you’ll play.</h2>
+        <p>Choose whether you want to play as the woman or man, then chat with the other character from this confession.</p>
+      </div>
+      <div className="roleplay-box-content">
+        <p className="choice-label">Choose your character</p>
+        <div className="perspective-options" role="group" aria-label="Choose the character to play">
           {(["woman", "man"] as const).map((choice) => (
             <button className={`perspective-option${perspective === choice ? " is-selected" : ""}`} type="button" key={choice}
               aria-pressed={perspective === choice} onClick={() => { setPerspective(choice); setStatus("idle"); }}>
               <span className="character-initial" aria-hidden="true">{choice === "woman" ? "W" : "M"}</span>
-              <span className="character-name">{choice === "woman" ? "Woman’s perspective" : "Man’s perspective"}</span>
+              <span className="character-copy"><span className="character-name">Play as the {choice}</span><span className="character-description">Take the {choice} character’s role in this confession.</span></span>
               <span className="perspective-check" aria-hidden="true">{perspective === choice ? "✓" : ""}</span>
             </button>
           ))}
         </div>
-        <button className="start-roleplay" type="button" disabled={!perspective || status === "saving"} onClick={startRoleplay}>
-          {status === "saving" ? "Starting…" : "Start roleplay"}<span aria-hidden="true">→</span>
+        <button className="start-roleplay" type="button" disabled={!perspective || status === "saving" || status === "saved"} onClick={startRoleplay}>
+          {status === "saving" ? "Saving your choice…" : status === "saved" ? "Role saved" : perspective ? "Save my roleplay choice" : "Choose a character first"}<span aria-hidden="true">→</span>
         </button>
         <p className="interaction-status" role="status" aria-live="polite">
-          {status === "saved" ? "Your choice has been saved." : status === "failed" ? "We couldn’t save your choice. Please try again." : "Select one, then start."}
+          {status === "saved" ? `Your choice to play as the ${perspective} is saved. The roleplay chat isn’t open yet.` : status === "failed" ? "We couldn’t save your role. Please try again." : "The chat is based on this confession. Save the role you’d like to play; the conversation isn’t open yet."}
         </p>
-      </div>}
-    </div>
+      </div>
+    </section>
   );
 }

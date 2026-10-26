@@ -6,7 +6,7 @@ import StoryImageViewer from "@/components/story-image-viewer";
 
 export const metadata: Metadata = {
   title: "Dating Confessions, Unfiltered",
-  description: "Read anonymous dating confessions about attraction, betrayal, mixed signals, and complicated relationships. Choose a story and its perspective.",
+  description: "Read anonymous dating confessions, choose whether to play as the woman or man in a story, and step into a character-based roleplay chat.",
   alternates: { canonical: "https://almostunfiltereddating.com/" },
 };
 
@@ -31,11 +31,11 @@ export default async function HomePage() {
       </header>
       <section className="home-hero home-hero-compact">
         <div className="home-hero-copy"><p className="story-kicker">Anonymous stories · Unfiltered Dating</p>
-          <h1>Dating confessions.<br /><em>Choose a side.</em></h1>
-          <p className="home-intro">Read a story, choose whose perspective to take, and step into the moment.</p>
+          <h1>Dating confessions.<br /><em>Choose your role.</em></h1>
+          <p className="home-intro">Choose a confession, play as the woman or man in the story, then roleplay a conversation with the other character.</p>
           <div className="home-actions"><a className="primary-link" href="/confessions">Browse confessions <span aria-hidden="true">→</span></a><a className="secondary-link" href="#story-categories">Explore categories</a></div>
         </div>
-        <aside className="home-hero-note" aria-label="How to explore stories"><span className="hero-note-number">01 — 03</span><ol><li><span>01</span> Pick a category</li><li><span>02</span> Open a confession</li><li><span>03</span> Choose a perspective</li></ol><a href="/confessions">Start reading <span aria-hidden="true">↗</span></a></aside>
+        <aside className="home-hero-note" aria-label="How story roleplay works"><span className="hero-note-number">READ · CHOOSE · ROLEPLAY</span><ol><li><span>01</span> Pick a confession</li><li><span>02</span> Choose the woman’s or man’s role</li><li><span>03</span> Start a chat with the other character</li></ol><a href="/confessions">Find a story <span aria-hidden="true">↗</span></a></aside>
       </section>
       <section id="story-categories" className="home-category-section" aria-labelledby="category-title">
         <div className="section-heading"><div><p className="story-kicker">Choose what you want to read</p><h2 id="category-title">Explore confessions</h2></div><a href="/categories">View every topic →</a></div>

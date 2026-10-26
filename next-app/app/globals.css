@@ -59,18 +59,33 @@ h1 {
 .byline-item { display: inline-flex; gap: 9px; align-items: center; }
 .roleplay-hero-link { display: inline-flex; gap: 10px; align-items: center; margin-top: 32px; padding: 11px 16px; border: 1px solid #8d416c; border-radius: 999px; background: #2a1828; color: #ffd6e8; font-size: 12px; font-weight: 750; letter-spacing: .03em; text-decoration: none; }
 .roleplay-hero-link:hover { background: #3a1e36; }
+.roleplay-box { display: grid; max-width: 960px; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: clamp(22px,4vw,42px); align-items: center; margin: 0 auto 42px; padding: clamp(22px,4vw,38px); border: 1px solid #67446f; border-radius: 20px; background: radial-gradient(ellipse at 100% 0%,#382744 0%,#211a2d 50%,#17121f 100%); box-shadow: 0 18px 55px #08060d35; scroll-margin-top: 24px; }
+.roleplay-box-heading .story-kicker { margin: 0 0 12px; }
+.roleplay-box-heading h2 { margin: 0 0 11px; color: var(--foreground); font: 500 clamp(27px,4vw,38px)/1.08 Georgia,serif; letter-spacing: -.025em; }
+.roleplay-box-heading > p:last-child { max-width: 360px; margin: 0; color: #c2b4cb; font-size: 13px; line-height: 1.7; }
+.roleplay-box-content { min-width: 0; }
+.roleplay-box-content .perspective-options { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.roleplay-box-content .perspective-option { min-height: 88px; grid-template-columns: 36px minmax(0,1fr) 20px; gap: 10px; padding: 12px; }
+.roleplay-box-content .character-initial { width: 34px; height: 34px; font-size: 16px; }
+.roleplay-box-content .character-name { font-size: 12px; }
+.roleplay-box-content .character-description { font-size: 10px; }
+.roleplay-box-content .start-roleplay { margin-top: 12px; border-radius: 11px; }
+.roleplay-box-content .start-roleplay:disabled { opacity: .78; }
+.roleplay-box-content .interaction-status { min-height: 0; margin: 9px 0 0; font-size: 10px; }
 .confession { max-width: 660px; padding: clamp(22px,4vw,44px); border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(145deg,#1b1523 0%,#14101a 100%); color: #e8dfec; font: 18px/1.9 Georgia,serif; }
 .chapter-mark { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; color: var(--accent); font: 700 10px/1.4 Inter,system-ui,sans-serif; letter-spacing: .16em; }
 .chapter-mark span { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid #79405e; border-radius: 50%; color: #ffd8e9; }
 .confession p { margin: 0 0 24px; }
 .confession blockquote { margin: 32px 0; padding: 4px 0 4px 20px; border-left: 2px solid var(--accent); color: #ffd6e8; font: italic 22px/1.6 Georgia,serif; }
 .confession .story-note { margin: 34px 0 0; color: var(--muted); font: 12px/1.6 Inter,system-ui,sans-serif; }
-.choice-label { margin: 26px 0 10px; color: #e8dce9; font-size: 12px; font-weight: 700; }
+.choice-label { margin: 0 0 11px; color: #e8dce9; font-size: 12px; font-weight: 700; }
 .perspective-options { display: grid; gap: 10px; }
 .perspective-option { display: grid; grid-template-columns: 42px 1fr 22px; column-gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: #100d16a8; color: var(--foreground); text-align: left; cursor: pointer; }
 .perspective-option:hover,.perspective-option.is-selected { border-color: var(--accent); background: #351d31; }
 .character-initial { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 50%; background: #43243d; color: #ffc6df; font: 18px Georgia,serif; }
+.character-copy { display: grid; gap: 5px; }
 .character-name { font-size: 13px; font-weight: 700; }
+.character-description { color: var(--muted); font-size: 11px; line-height: 1.45; }
 .perspective-check { color: #25111e; font-size: 13px; font-weight: 900; }
 .perspective-option.is-selected .perspective-check { display: grid; width: 21px; height: 21px; place-items: center; border-radius: 50%; background: var(--accent); }
 .start-roleplay { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 14px 17px; border: 0; border-radius: 999px; background: var(--accent-gradient); color: #1c1022; font-weight: 800; cursor: pointer; }
@@ -182,18 +197,6 @@ h1 {
 .confession-category-group .section-heading h2 { margin: 0; font-size: clamp(25px,4vw,34px); }
 .confession-category-group .section-heading h2 a { text-decoration: none; }
 .confession-category-group .section-heading > span { color: var(--muted); font-size: 12px; }
-.roleplay-inline { margin: 0 0 30px; padding: 0; border: 0; background: transparent; font: 14px/1.6 Inter,ui-sans-serif,system-ui,sans-serif; }
-.roleplay-inline-prompt { margin: 0; color: #e2d6e8; }
-.roleplay-inline-trigger { display: inline; padding: 0; border: 0; background: transparent; color: #d2a2de; font: inherit; font-weight: 750; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-.roleplay-inline-trigger:hover { color: #f0c0df; }
-.roleplay-start { margin-top: 14px; padding: 14px; border: 1px solid #514064; border-radius: 12px; background: linear-gradient(110deg,#251a2c,#1a1728 65%,#171522); font-family: Inter,ui-sans-serif,system-ui,sans-serif; }
-.roleplay-start .choice-label { margin: 0 0 10px; }
-.roleplay-start .perspective-options { grid-template-columns: repeat(2,minmax(0,1fr)); }
-.roleplay-start .perspective-option { min-height: 56px; grid-template-columns: 32px 1fr 20px; padding: 9px 10px; }
-.roleplay-start .character-initial { width: 30px; height: 30px; font-size: 14px; }
-.roleplay-start .character-name { font-size: 12px; }
-.roleplay-start .start-roleplay { width: auto; min-width: 190px; justify-content: center; gap: 12px; padding: 11px 16px; font-size: 12px; }
-.roleplay-start .interaction-status { display: inline-block; min-height: 0; margin: 0 0 0 12px; font-size: 11px; }
 .confession-full { max-width: 900px; margin: 0 auto 60px; }
 .confession-body { max-width: 760px; }
 .story-image-trigger { position: relative; display: block; width: 100%; overflow: hidden; padding: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); cursor: zoom-in; }
@@ -235,7 +238,8 @@ h1 {
 .image-upload-control.has-image::after { position: absolute; right: 12px; bottom: 12px; padding: 6px 9px; border: 1px solid #ffffff35; border-radius: 999px; background: #100d16c9; color: #f3edf9; content: "Change image"; font-size: 10px; pointer-events: none; }
 .image-upload-control.has-image.is-locked::after { content: "Image selected"; }
 @media (max-width: 800px) { .home-featured-groups { grid-template-columns: 1fr; } }
-@media (max-width: 580px) { .simple-nav { gap: 14px; } .roleplay-start .perspective-options { grid-template-columns: 1fr; } .roleplay-start .start-roleplay { width: 100%; } .roleplay-start .interaction-status { display: block; margin: 10px 0 0; } }
+@media (max-width: 760px) { .roleplay-box { grid-template-columns: 1fr; gap: 20px; } }
+@media (max-width: 580px) { .simple-nav { gap: 14px; } .roleplay-box { margin-bottom: 30px; padding: 20px; } .roleplay-box-content .perspective-options { grid-template-columns: 1fr; } .roleplay-box-content .start-roleplay { width: 100%; } }
 @media (max-width: 800px) { .home-nav { align-items: flex-start; padding: 20px 0; } .home-nav nav { max-width: 70%; } .story-cards,.category-directory { grid-template-columns: repeat(2,minmax(0,1fr)); } .guide-section { grid-template-columns: 1fr; } }
 @media (max-width: 580px) { .home-shell,.listing-shell { width: min(100% - 28px,1180px); } .home-nav { flex-direction: column; } .home-nav nav { max-width: none; justify-content: flex-start; gap: 12px 20px; } .home-hero { padding-top: 76px; } .section-heading,.share-callout { align-items: flex-start; flex-direction: column; } .story-cards,.category-links,.category-directory { grid-template-columns: 1fr; } .guide-form-row { flex-direction: column; } .guide-form-row button { min-height: 46px; } .site-footer { gap: 14px; } }
 @media (max-width: 780px) { .story-hero { padding-top: 60px; } }

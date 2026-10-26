@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const story = await getStory(cleanSlug(slug));
   if (!story) return { title: "Confession not found", robots: { index: false, follow: false } };
   const canonical = `${siteUrl}${storyPath(story)}`;
-  const searchDescription = `Anonymous ${story.category.toLowerCase()} dating confession: ${story.summary}`.slice(0, 160).trimEnd();
+  const searchDescription = `Anonymous ${story.category.toLowerCase()} dating confession. Choose a role and roleplay the scene: ${story.summary}`.slice(0, 160).trimEnd();
   return {
     title: story.title,
     description: searchDescription,
@@ -37,7 +37,7 @@ export default async function ConfessionPage({ params }: PageProps) {
   const canonical = `${siteUrl}${storyPath(story)}`;
   const structuredData = {
     "@context": "https://schema.org", "@type": "Article", headline: story.title,
-    description: `Anonymous ${story.category.toLowerCase()} dating confession: ${story.summary}`.slice(0, 160).trimEnd(),
+    description: `Anonymous ${story.category.toLowerCase()} dating confession. Choose a role and roleplay the scene: ${story.summary}`.slice(0, 160).trimEnd(),
     articleSection: story.category, datePublished: story.createdAt,
     dateModified: story.createdAt, inLanguage: "en", keywords: ["dating confession", "anonymous dating story", story.category].join(", "),
     articleBody: story.body, wordCount: story.body.trim().split(/\s+/).filter(Boolean).length,
@@ -66,11 +66,11 @@ export default async function ConfessionPage({ params }: PageProps) {
         <h1 id="story-title">{story.title}</h1>
         <p className="story-deck">{story.summary}</p>
         <div className="story-byline"><span>Anonymous confession</span><span aria-hidden="true">·</span><time dateTime={story.createdAt}>{new Date(story.createdAt).toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}</time></div>
-        <a className="roleplay-hero-link" href="#roleplay-action">Take a role in this story <span aria-hidden="true">↓</span></a>
+        <a className="roleplay-hero-link" href="#roleplay-action">Choose your role for roleplay <span aria-hidden="true">↓</span></a>
       </section>
+      <RoleplayPanel storySlug={story.slug} storyCategory={story.category} />
       <article id="the-confession" className="confession confession-full" aria-label="Dating confession">
         <div className="chapter-mark"><span>01</span> THE CONFESSION</div>
-        <RoleplayPanel storySlug={story.slug} storyCategory={story.category} />
         <div className="confession-body">{paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
       </article>
       <footer className="story-footer"><a href="/confessions">Browse all confessions</a><span>{story.category}</span></footer>
