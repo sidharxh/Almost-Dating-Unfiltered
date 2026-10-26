@@ -27,7 +27,7 @@ export default async function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <header className="home-nav">
         <a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a>
-        <nav aria-label="Main navigation"><a href="/confessions">Confessions</a><a href="#hinge-guide">Free Hinge guide</a><a className="home-share-link" href="#share-story">Share a story</a></nav>
+        <nav aria-label="Main navigation"><a href="/confessions">Confessions</a><a href="#hinge-guide">Free Hinge guide</a><a className="home-share-link" href="/submit-story">Share a story</a></nav>
       </header>
       <section className="home-hero home-hero-compact">
         <div className="home-hero-copy"><p className="story-kicker">Anonymous stories · Unfiltered Dating</p>
