@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { STORY_CATEGORIES } from "@/lib/categories";
 import { getStories, storyPath } from "@/lib/stories";
+import StoryImageViewer from "@/components/story-image-viewer";
 
 const siteUrl = "https://almostunfiltereddating.com";
 type Props = { params: Promise<{ category: string }> };
@@ -33,7 +34,10 @@ export default async function CategoryPage({ params }: Props) {
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList).replace(/</g, "\\u003c") }} />
     <header className="story-nav"><a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a><a className="back-link" href="/categories">All categories</a></header>
     <section className="listing-hero"><p className="story-kicker">Unfiltered Dating · Category</p><h1>{category.label}</h1><p>Anonymous dating confessions about {category.tags.join(", ")}.</p></section>
-    {stories.length ? <div className="story-cards listing-cards">{stories.map((story) => <a className="story-list-card" href={storyPath(story)} key={story.id}><span className="category-pill">{story.category}</span><h2>{story.title}</h2><p>{story.summary}</p><span className="card-link">Read confession →</span></a>)}</div> : <p className="empty-stories">There are no published stories in this category yet. <a href="/confessions">Browse all confessions.</a></p>}
+    {stories.length ? <div className="story-cards listing-cards">{stories.map((story) => <article className="story-list-card" key={story.id}>
+      {story.coverImageUrl && <StoryImageViewer src={story.coverImageUrl} alt={story.coverImageAlt} variant="card" />}
+      <div className="story-list-card-copy"><span className="category-pill">{story.category}</span><h2><a href={storyPath(story)}>{story.title}</a></h2><p>{story.summary}</p><a className="card-link" href={storyPath(story)}>Read confession →</a></div>
+    </article>)}</div> : <p className="empty-stories">There are no published stories in this category yet. <a href="/confessions">Browse all confessions.</a></p>}
     <footer className="story-footer"><a href="/submit-story">Share your confession</a><span>Almost · Unfiltered Dating</span></footer>
   </main>;
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { STORY_CATEGORIES } from "@/lib/categories";
 import { getStories, storyPath } from "@/lib/stories";
 import GuideDownloadForm from "@/components/guide-download-form";
+import StoryImageViewer from "@/components/story-image-viewer";
 
 export const metadata: Metadata = {
   title: "Dating Confessions by Category",
@@ -40,7 +41,10 @@ export default async function HomePage() {
         {featuredByCategory.length ? <div className="home-featured-groups">{featuredByCategory.map(({ category, stories: categoryStories }) => (
           <section className="home-featured-group" key={category.slug}>
             <h3><a href={`/categories/${category.slug}`}>{category.label}<span aria-hidden="true">↗</span></a></h3>
-            <div className="home-featured-stories">{categoryStories.map((story) => <a className="home-featured-story" href={storyPath(story)} key={story.id}><strong>{story.title}</strong><span>{story.summary}</span><small>Read confession →</small></a>)}</div>
+            <div className="home-featured-stories">{categoryStories.map((story) => <article className="home-featured-story" key={story.id}>
+              {story.coverImageUrl && <StoryImageViewer src={story.coverImageUrl} alt={story.coverImageAlt} variant="card" />}
+              <a className="home-featured-story-link" href={storyPath(story)}><strong>{story.title}</strong><span>{story.summary}</span><small>Read confession →</small></a>
+            </article>)}</div>
           </section>
         ))}</div> : <p className="empty-stories">Published confessions will appear here.</p>}
       </section>

@@ -196,9 +196,55 @@ h1 {
 .roleplay-start .interaction-status { display: inline-block; min-height: 0; margin: 0 0 0 12px; font-size: 11px; }
 .confession-full { max-width: 900px; margin: 0 auto 60px; }
 .confession-body { max-width: 760px; }
+.story-image-trigger { position: relative; display: block; width: 100%; overflow: hidden; padding: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); cursor: zoom-in; }
+.story-image-trigger img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.story-image-trigger-card { aspect-ratio: 16 / 9; margin-bottom: 15px; border-radius: 12px; }
+.story-image-trigger-article { width: 100%; max-width: 900px; aspect-ratio: 16 / 9; margin: 0 auto 28px; border-radius: 20px; }
+.story-image-trigger-article img { object-position: center; }
+.story-image-open-hint { position: absolute; right: 12px; bottom: 12px; padding: 7px 10px; border: 1px solid #ffffff35; border-radius: 999px; background: #100d16c9; color: #f3edf9; font: 11px/1.2 Inter,ui-sans-serif,system-ui,sans-serif; opacity: 0; transition: opacity .15s ease; }
+.story-image-trigger:hover .story-image-open-hint,.story-image-trigger:focus-visible .story-image-open-hint { opacity: 1; }
+.story-image-lightbox { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: 56px 20px 20px; background: #08060deF; cursor: zoom-out; }
+.story-image-lightbox > img { display: block; max-width: min(100%,1400px); max-height: calc(100dvh - 76px); object-fit: contain; cursor: default; }
+.story-image-close { position: absolute; top: max(14px,env(safe-area-inset-top)); right: max(14px,env(safe-area-inset-right)); display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #5c4c64; border-radius: 50%; background: #201827; color: #f3edf9; font-size: 28px; line-height: 1; cursor: pointer; }
+.story-list-card { display: flex; overflow: hidden; }
+.story-list-card-copy { display: flex; min-height: 0; flex: 1; flex-direction: column; align-items: flex-start; }
+.story-list-card-copy { width: 100%; }
+.story-list-card-copy h2,.story-list-card-copy h3 { margin: 14px 0 10px; }
+.story-list-card-copy h2 a,.story-list-card-copy h3 a { text-decoration: none; }
+.story-list-card-copy h2 a:hover,.story-list-card-copy h3 a:hover { color: var(--accent); }
+.home-featured-story { min-width: 0; }
+.home-featured-story-link { display: grid; gap: 6px; text-decoration: none; }
+.home-featured-story .story-image-trigger-card { margin-bottom: 10px; }
+.home-featured-story .story-image-trigger-card img { transition: transform .2s ease; }
+.home-featured-story .story-image-trigger-card:hover img { transform: scale(1.025); }
+.image-upload-field { margin-top: 24px; }
+.image-upload-control { position: relative; display: grid; min-height: 170px; place-items: center; overflow: hidden; border: 1px dashed #594866; border-radius: 13px; background: #15111c; cursor: pointer; }
+.image-upload-control:hover { border-color: var(--accent); }
+.image-upload-control:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px #9a69b51c; }
+.image-upload-control input { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; padding: 0; opacity: 0; cursor: pointer; }
+.image-upload-control input:disabled { cursor: not-allowed; }
+.image-upload-placeholder { display: grid; gap: 8px; justify-items: center; padding: 22px; text-align: center; }
+.image-upload-placeholder strong { color: #e9dfeb; font-size: 13px; }
+.image-upload-placeholder small,.image-upload-field > small { color: var(--muted); font-size: 11px; font-weight: 400; line-height: 1.55; }
+.image-upload-control img { display: block; width: 100%; max-height: 340px; aspect-ratio: 16 / 9; object-fit: contain; }
+.image-file-details { color: #e2d4e7 !important; }
+.image-selection-details { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.image-selection-details button { padding: 4px 0; border: 0; background: transparent; color: #d8b5dc; font: 11px Inter,ui-sans-serif,system-ui,sans-serif; text-decoration: underline; cursor: pointer; }
+.image-selection-details button:disabled { opacity: .55; cursor: not-allowed; }
+.image-upload-error { color: #ff9eaf !important; }
+.image-upload-control.has-image::after { position: absolute; right: 12px; bottom: 12px; padding: 6px 9px; border: 1px solid #ffffff35; border-radius: 999px; background: #100d16c9; color: #f3edf9; content: "Change image"; font-size: 10px; pointer-events: none; }
+.image-upload-control.has-image.is-locked::after { content: "Image selected"; }
 @media (max-width: 800px) { .home-featured-groups { grid-template-columns: 1fr; } }
 @media (max-width: 580px) { .simple-nav { gap: 14px; } .roleplay-start .perspective-options { grid-template-columns: 1fr; } .roleplay-start .start-roleplay { width: 100%; } .roleplay-start .interaction-status { display: block; margin: 10px 0 0; } }
 @media (max-width: 800px) { .home-nav { align-items: flex-start; padding: 20px 0; } .home-nav nav { max-width: 70%; } .story-cards,.category-directory { grid-template-columns: repeat(2,minmax(0,1fr)); } .guide-section { grid-template-columns: 1fr; } }
 @media (max-width: 580px) { .home-shell,.listing-shell { width: min(100% - 28px,1180px); } .home-nav { flex-direction: column; } .home-nav nav { max-width: none; justify-content: flex-start; gap: 12px 20px; } .home-hero { padding-top: 76px; } .section-heading,.share-callout { align-items: flex-start; flex-direction: column; } .story-cards,.category-links,.category-directory { grid-template-columns: 1fr; } .guide-form-row { flex-direction: column; } .guide-form-row button { min-height: 46px; } .site-footer { gap: 14px; } }
 @media (max-width: 780px) { .story-hero { padding-top: 60px; } }
 @media (max-width: 480px) { .story-shell { width: min(100% - 28px,1160px); } .submit-shell { width: min(100% - 28px,860px); } .story-nav { min-height: 64px; } .story-deck { font-size: 18px; } .story-footer { flex-direction: column; } }
+@media (max-width: 580px) {
+  .story-image-trigger-card { margin-bottom: 12px; border-radius: 10px; }
+  .story-image-trigger-article { margin-bottom: 20px; border-radius: 14px; }
+  .story-image-open-hint { opacity: 1; }
+  .story-image-lightbox { padding: max(58px,env(safe-area-inset-top)) 10px max(14px,env(safe-area-inset-bottom)); }
+  .story-image-lightbox > img { max-width: 100%; max-height: calc(100dvh - 84px); }
+  .image-upload-control { min-height: 140px; }
+}

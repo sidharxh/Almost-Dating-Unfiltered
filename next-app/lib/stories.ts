@@ -9,6 +9,8 @@ export type Story = {
   body: string;
   createdAt: string;
   tags: string[];
+  coverImageUrl: string | null;
+  coverImageAlt: string;
 };
 
 type StoryRow = {
@@ -19,6 +21,8 @@ type StoryRow = {
   created_at: string;
   tags: string[] | null;
   story_summary: string | null;
+  image_path: string | null;
+  image_alt: string | null;
 };
 
 function slugify(value: string) {
@@ -40,13 +44,24 @@ function seoSummary(value: string) {
   return `${shortened.slice(0, lastSpace > 100 ? lastSpace : 152).trimEnd()}…`;
 }
 
+function storySlug(title: string, id: string) {
+  return `${slugify(title) || "dating-confession"}-${id.slice(0, 8)}`;
+}
+
+export function getCoverImageUrl(path: string | null) {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!url || !path) return null;
+  const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+  return `${url.replace(/\/$/, "")}/storage/v1/object/public/confession-images/${encodedPath}`;
+}
+
 export async function getStories(): Promise<Story[]> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   if (!url || !key) return [];
 
   const query = new URLSearchParams({
-    select: "id,title,category,body,created_at,tags,story_summary",
+    select: "id,title,category,body,created_at,tags,story_summary,image_path,image_alt",
     status: "eq.approved",
     order: "created_at.desc",
   });
@@ -60,11 +75,10 @@ export async function getStories(): Promise<Story[]> {
       return [];
     }
     const rows = await response.json() as StoryRow[];
-    const usedSlugs = new Set<string>();
     return rows.map((row) => {
-      let slug = slugify(row.title) || `story-${row.id.slice(0, 8)}`;
-      if (usedSlugs.has(slug)) slug = `${slug}-${row.id.slice(0, 8)}`;
-      usedSlugs.add(slug);
+      // Include a stable ID suffix so a newly approved story can never change
+      // another story's URL when titles match or are edited later.
+      const slug = storySlug(row.title, row.id);
       const body = row.body ?? "";
       const summary = seoSummary(row.story_summary?.trim() || body);
       return {
@@ -76,6 +90,8 @@ export async function getStories(): Promise<Story[]> {
         body,
         createdAt: row.created_at,
         tags: row.tags ?? [],
+        coverImageUrl: getCoverImageUrl(row.image_path),
+        coverImageAlt: row.image_alt?.trim() || row.title,
       };
     });
   } catch (error) {
@@ -85,7 +101,16 @@ export async function getStories(): Promise<Story[]> {
 }
 
 export async function getStory(slug: string) {
-  return (await getStories()).find((story) => story.slug === slug);
+  const stories = await getStories();
+  const exact = stories.find((story) => story.slug === slug);
+  if (exact) return exact;
+
+  // Keep previously published title-only URLs working. If titles collide, the
+  // newest matching story was the one that previously owned the bare slug.
+  return stories.find((story) => {
+    const titleSlug = slugify(story.title) || `story-${story.id.slice(0, 8)}`;
+    return slug === titleSlug || slug === `${titleSlug}-${story.id.slice(0, 8)}`;
+  });
 }
 
 export function getCategorySlug(label: string) {

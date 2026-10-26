@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import RoleplayPanel from "@/components/roleplay-panel";
+import StoryImageViewer from "@/components/story-image-viewer";
 import { getStories, getStory, storyPath } from "@/lib/stories";
 
 const siteUrl = "https://almostunfiltereddating.com";
@@ -17,13 +18,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const story = await getStory(cleanSlug(slug));
   if (!story) return { title: "Confession not found", robots: { index: false, follow: false } };
   const canonical = `${siteUrl}${storyPath(story)}`;
+  const searchDescription = `Anonymous ${story.category.toLowerCase()} dating confession: ${story.summary}`.slice(0, 160).trimEnd();
   return {
     title: story.title,
-    description: story.summary,
-    keywords: ["dating confession", "anonymous dating story", story.category, ...story.tags],
+    description: searchDescription,
+    keywords: ["dating confession", "anonymous dating story", story.category],
     alternates: { canonical },
-    openGraph: { type: "article", title: story.title, description: story.summary, url: canonical, siteName: "Almost — Unfiltered Dating" },
-    twitter: { card: "summary", title: story.title, description: story.summary },
+    openGraph: { type: "article", title: story.title, description: searchDescription, url: canonical, siteName: "Almost — Unfiltered Dating", publishedTime: story.createdAt, section: story.category, ...(story.coverImageUrl ? { images: [{ url: story.coverImageUrl, alt: story.coverImageAlt }] } : {}) },
+    twitter: { card: story.coverImageUrl ? "summary_large_image" : "summary", title: story.title, description: searchDescription, ...(story.coverImageUrl ? { images: [story.coverImageUrl] } : {}) },
   };
 }
 
@@ -35,10 +37,14 @@ export default async function ConfessionPage({ params }: PageProps) {
   const canonical = `${siteUrl}${storyPath(story)}`;
   const structuredData = {
     "@context": "https://schema.org", "@type": "Article", headline: story.title,
-    description: story.summary, articleSection: story.category, datePublished: story.createdAt,
-    dateModified: story.createdAt, inLanguage: "en", keywords: [story.category, ...story.tags].join(", "),
+    description: `Anonymous ${story.category.toLowerCase()} dating confession: ${story.summary}`.slice(0, 160).trimEnd(),
+    articleSection: story.category, datePublished: story.createdAt,
+    dateModified: story.createdAt, inLanguage: "en", keywords: ["dating confession", "anonymous dating story", story.category].join(", "),
     articleBody: story.body, wordCount: story.body.trim().split(/\s+/).filter(Boolean).length,
+    ...(story.coverImageUrl ? { image: story.coverImageUrl } : {}),
     author: { "@type": "Person", name: "Anonymous" }, mainEntityOfPage: canonical,
+    isAccessibleForFree: true,
+    isPartOf: { "@type": "WebSite", name: "Almost — Unfiltered Dating", url: siteUrl },
     publisher: { "@type": "Organization", name: "Almost — Unfiltered Dating", url: siteUrl, logo: { "@type": "ImageObject", url: `${siteUrl}/icon.svg` } },
   };
   const breadcrumbData = {
@@ -54,6 +60,7 @@ export default async function ConfessionPage({ params }: PageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData).replace(/</g, "\\u003c") }} />
       <header className="story-nav"><a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a><a className="back-link" href="/confessions">All confessions</a></header>
+      {story.coverImageUrl && <StoryImageViewer src={story.coverImageUrl} alt={story.coverImageAlt} />}
       <section className="story-hero" aria-labelledby="story-title">
         <p className="story-kicker">{story.category} · Unfiltered Dating</p>
         <h1 id="story-title">{story.title}</h1>

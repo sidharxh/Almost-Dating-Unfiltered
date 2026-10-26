@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { STORY_CATEGORIES } from "@/lib/categories";
 import { getStories, storyPath } from "@/lib/stories";
+import StoryImageViewer from "@/components/story-image-viewer";
 
 export const metadata: Metadata = {
   title: "Dating Confessions & Roleplay Stories",
@@ -25,7 +26,10 @@ export default async function ConfessionsPage() {
     <section className="listing-hero"><p className="story-kicker">Unfiltered Dating · Pick a perspective</p><h1>Confessions to step into.</h1><p>Browse by category, choose a story, then take a role in the scene.</p></section>
     {grouped.length ? <div className="confession-category-groups">{grouped.map(({ category, stories: categoryStories }) => <section className="confession-category-group" id={category.slug} key={category.slug} aria-labelledby={`${category.slug}-title`}>
       <div className="section-heading"><h2 id={`${category.slug}-title`}><a href={`/categories/${category.slug}`}>{category.label}</a></h2><span>{categoryStories.length} {categoryStories.length === 1 ? "confession" : "confessions"}</span></div>
-      {categoryStories.length ? <div className="story-cards">{categoryStories.map((story) => <a className="story-list-card" href={storyPath(story)} key={story.id}><h3>{story.title}</h3><p>{story.summary}</p><span className="card-link">Read and take a role →</span></a>)}</div> : <p className="category-empty">No published confessions in this category yet.</p>}
+      {categoryStories.length ? <div className="story-cards">{categoryStories.map((story) => <article className="story-list-card" key={story.id}>
+        {story.coverImageUrl && <StoryImageViewer src={story.coverImageUrl} alt={story.coverImageAlt} variant="card" />}
+        <div className="story-list-card-copy"><span className="category-pill">{story.category}</span><h3><a href={storyPath(story)}>{story.title}</a></h3><p>{story.summary}</p><a className="card-link" href={storyPath(story)}>Read and take a role →</a></div>
+      </article>)}</div> : <p className="category-empty">No published confessions in this category yet.</p>}
     </section>)}</div> : <p className="empty-stories">Published confessions will appear here.</p>}
     <footer className="story-footer"><a href="/">Home</a><a href="/submit-story">Share your confession</a><span>Almost · Unfiltered Dating</span></footer>
   </main>;

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://almostunfiltereddating.com"),
   title: {
     default: "Almost — Unfiltered Dating",
-    template: "%s | Almost — Unfiltered Dating",
+    template: "%s | Almost",
   },
   description:
     "Anonymous dating confessions about betrayal, attraction, mixed signals, and the moments people rarely say out loud.",
