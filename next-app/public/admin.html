@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#100d16">
+<title>Review story submissions | Almost</title>
+<style>
+:root{color-scheme:dark;--bg:#100d16;--paper:#191421;--ink:#f3edf9;--muted:#b1a7bf;--line:#342a40;--accent:#b99be8;--pink:#ff79b8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,sans-serif}.shell{max-width:880px;margin:0 auto;padding:32px 20px 60px}a{color:var(--accent)}.brand{font:700 30px Georgia,serif;color:var(--ink);text-decoration:none}.brand span{color:var(--pink)}header{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:18px}h1{font:40px/1.1 Georgia,serif;margin:34px 0 8px}.intro,.notice,.status{color:var(--muted)}.notice{padding:14px 16px;margin:20px 0;background:#100d16;border:1px solid var(--line);border-left:3px solid var(--pink);border-radius:8px;font-size:14px}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:25px 0 14px}.toolbar button,.approve{border:1px solid var(--accent);border-radius:999px;padding:9px 15px;background:var(--accent);color:#1a1223;font:inherit;font-weight:700;cursor:pointer}.toolbar button:disabled,.approve:disabled{opacity:.55;cursor:wait}.queue{display:grid;gap:14px}.submission{padding:20px;background:var(--paper);border:1px solid var(--line);border-radius:14px}.submission h2{font:25px/1.2 Georgia,serif;margin:10px 0}.meta{color:var(--muted);font-size:13px}.story{margin:15px 0;white-space:pre-wrap;overflow-wrap:anywhere}.category{display:inline-block;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}.empty{padding:28px;border:1px dashed var(--line);border-radius:14px;color:var(--muted);text-align:center}.error{color:#ff9bbf}.actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.status{min-height:24px;font-size:14px}footer{margin-top:30px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><a class="brand" href="/">almost<span>.</span></a><a href="/confessions">View the archive</a></header>
+<main>
+<h1>Review story submissions</h1>
+<p class="intro">Read each story and approve the ones you think should appear in the public archive.</p>
+<div class="notice"><strong>Open community review:</strong> submissions shown here are visible to anyone. Any visitor can approve a pending story. Approval publishes it in the archive. Stories marked 18+ should only be approved for adult readers.</div>
+<div class="toolbar"><span id="queue-count" class="meta" aria-live="polite">Loading submissions…</span><button id="refresh" type="button">Refresh</button></div>
+<div id="queue" class="queue" aria-live="polite"></div>
+<p id="status" class="status" role="status" aria-live="polite"></p>
+<h2>Pending story comments</h2>
+<p class="intro">Comments appear on a story after approval.</p>
+<div class="toolbar"><span id="comment-count" class="meta" aria-live="polite">Loading comments…</span><button id="refresh-comments" type="button">Refresh comments</button></div>
+<div id="comment-queue" class="queue" aria-live="polite"></div>
+<p id="comment-status" class="status" role="status" aria-live="polite"></p>
+</main>
+<footer><a href="/confessions">← Back to confessions</a></footer>
+</div>
+<script>
+(()=>{
+ const api='https://uajkmfiuuljbnuawovma.supabase.co/rest/v1';
+ const key='sb_publishable_gVCj4Z6JlPjWNwc7buKKmg_zaZTLU7r';
+ const queue=document.getElementById('queue'),count=document.getElementById('queue-count'),status=document.getElementById('status'),refresh=document.getElementById('refresh');
+ const headers={apikey:key,'Content-Type':'application/json'};
+ const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ async function load(){
+   refresh.disabled=true;status.textContent='';queue.replaceChildren();count.textContent='Loading submissions…';
+   try{
+     const response=await fetch(`${api}/confessions?select=id,title,category,author,body,created_at,status&status=eq.pending&order=created_at.asc&limit=100`,{headers});
+     if(!response.ok)throw new Error(await response.text());
+     const rows=await response.json();count.textContent=`${rows.length} pending ${rows.length===1?'submission':'submissions'}`;
+     if(!rows.length){queue.innerHTML='<div class="empty">There are no pending submissions.</div>';return;}
+     for(const row of rows){
+       const card=document.createElement('article');card.className='submission';
+       const title=document.createElement('h2');title.textContent=row.title;
+       const category=document.createElement('span');category.className='category';category.textContent=row.category;
+       const meta=document.createElement('div');meta.className='meta';
+       const created=new Date(row.created_at);meta.textContent=`${row.author||'Anonymous'} · ${Number.isNaN(created.getTime())?'Date unavailable':created.toLocaleString()}${row.category==='Intimacy & 18+'?' · 18+':''}`;
+       const body=document.createElement('p');body.className='story';body.textContent=row.body;
+       const actions=document.createElement('div');actions.className='actions';
+       const approve=document.createElement('button');approve.type='button';approve.className='approve';approve.textContent='Approve story';
+       const state=document.createElement('span');state.className='meta';
+       approve.addEventListener('click',async()=>{
+         if(!window.confirm('Approve this story and make it visible in the public archive?'))return;
+         approve.disabled=true;state.textContent='Approving…';
+         try{
+           const result=await fetch(`${api}/confessions?id=eq.${encodeURIComponent(row.id)}&status=eq.pending`,{method:'PATCH',headers:{...headers,Prefer:'return=minimal'},body:JSON.stringify({status:'approved'})});
+           if(!result.ok)throw new Error(await result.text());
+           card.remove();const remaining=queue.querySelectorAll('.submission').length;count.textContent=`${remaining} pending ${remaining===1?'submission':'submissions'}`;status.textContent='Story approved and added to the archive.';
+           if(!remaining)queue.innerHTML='<div class="empty">There are no pending submissions.</div>';
+         }catch(error){console.error('Approval failed:',error);state.textContent='Could not approve. Refresh and try again.';approve.disabled=false;}
+       });
+       actions.append(approve,state);card.append(category,title,meta,body,actions);queue.append(card);
+     }
+   }catch(error){console.error('Could not load submissions:',error);count.textContent='Could not load submissions';queue.innerHTML='<div class="empty error">The submission list could not be loaded. Check the connection and refresh.</div>';}
+   finally{refresh.disabled=false;}
+ }
+ refresh.addEventListener('click',load);load();
+})();
+</script>
+<script>
+(()=>{
+ const api='https://uajkmfiuuljbnuawovma.supabase.co/rest/v1',key='sb_publishable_gVCj4Z6JlPjWNwc7buKKmg_zaZTLU7r';
+ const queue=document.getElementById('comment-queue'),count=document.getElementById('comment-count'),status=document.getElementById('comment-status'),refresh=document.getElementById('refresh-comments'),headers={apikey:key,'Content-Type':'application/json'};
+ const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node};
+ async function loadComments(){refresh.disabled=true;queue.replaceChildren();status.textContent='';count.textContent='Loading comments…';try{const response=await fetch(`${api}/story_comments?select=id,story_slug,author_label,body,created_at&status=eq.pending&order=created_at.asc&limit=100`,{headers});if(!response.ok)throw new Error(await response.text());const rows=await response.json();count.textContent=`${rows.length} pending ${rows.length===1?'comment':'comments'}`;if(!rows.length){queue.append(el('div','empty','There are no pending comments.'));return}rows.forEach(row=>{const card=el('article','submission'),title=el('h3','',row.author_label||'Anonymous'),story=el('p','meta','Story: '+row.story_slug),body=el('p','story',row.body),actions=el('div','actions'),approve=el('button','approve','Approve comment'),state=el('span','meta','');approve.type='button';approve.addEventListener('click',async()=>{approve.disabled=true;state.textContent='Approving…';try{const result=await fetch(`${api}/story_comments?id=eq.${encodeURIComponent(row.id)}&status=eq.pending`,{method:'PATCH',headers:{...headers,Prefer:'return=minimal'},body:JSON.stringify({status:'approved'})});if(!result.ok)throw new Error(await result.text());card.remove();const remaining=queue.querySelectorAll('.submission').length;count.textContent=`${remaining} pending ${remaining===1?'comment':'comments'}`;status.textContent='Comment approved.';if(!remaining)queue.append(el('div','empty','There are no pending comments.'))}catch(error){state.textContent='Could not approve. Refresh and try again.';approve.disabled=false}});actions.append(approve,state);card.append(title,story,body,actions);queue.append(card)})}catch(error){count.textContent='Could not load comments';queue.append(el('div','empty error','The comment list could not be loaded. Check the connection and refresh.'))}finally{refresh.disabled=false}}
+ refresh.addEventListener('click',loadComments);loadComments();
+})();
+</script>
+</body>
+</html>
