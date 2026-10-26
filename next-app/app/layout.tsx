@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "./analytics";
-import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import VercelAnalytics from "@/components/vercel-analytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -37,9 +37,7 @@ export default function RootLayout({
       <body>
         {children}
         <Analytics />
-        <VercelAnalytics
-          beforeSend={(event) => (event.url.includes("/admin") ? null : event)}
-        />
+        <VercelAnalytics />
       </body>
     </html>
   );
