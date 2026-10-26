@@ -3,6 +3,7 @@ import { STORY_CATEGORIES } from "@/lib/categories";
 import { getStories, storyPath } from "@/lib/stories";
 import GuideDownloadForm from "@/components/guide-download-form";
 import StoryImageViewer from "@/components/story-image-viewer";
+import HomeNavigation from "@/components/home-navigation";
 
 export const metadata: Metadata = {
   title: "Dating Confessions, Unfiltered",
@@ -25,11 +26,7 @@ export default async function HomePage() {
   return (
     <main className="home-shell">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
-      <header className="home-nav">
-        <a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a>
-        <nav aria-label="Main navigation"><a href="/confessions">Confessions</a><a href="#hinge-guide">Free Hinge guide</a></nav>
-        <a className="home-share-link" href="/submit-story">Share a story</a>
-      </header>
+      <HomeNavigation />
       <section className="home-hero home-hero-compact">
         <div className="home-hero-copy"><p className="story-kicker">Anonymous stories · Unfiltered Dating</p>
           <h1>Dating confessions.<br /><em>Choose your role.</em></h1>

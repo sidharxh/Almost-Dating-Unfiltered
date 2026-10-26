@@ -4,9 +4,6 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseOrigin = supabaseUrl ? new URL(supabaseUrl) : null;
 
 const nextConfig: NextConfig = {
-  async redirects() {
-    return [{ source: "/admin", destination: "/admin.html", permanent: false }];
-  },
   images: {
     remotePatterns: supabaseOrigin ? [{
       protocol: supabaseOrigin.protocol.slice(0, -1) as "http" | "https",
