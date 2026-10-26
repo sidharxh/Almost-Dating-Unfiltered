@@ -119,7 +119,7 @@ h1 {
 .interaction-status { min-height: 20px; margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
 .perspective-option { min-height: 72px; }
 .home-shell,.listing-shell { width: min(100% - 44px, 1180px); margin-inline: auto; }
-.home-nav { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); }
+.home-nav { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: clamp(16px,2vw,28px); border-bottom: 1px solid var(--line); }
 .home-nav nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px clamp(12px,2.5vw,28px); }
 .home-nav nav a { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; padding: 0 8px; line-height: 1.2; white-space: nowrap; }
 .home-nav nav a,.section-heading > a,.site-footer a:not(.brand) { color: #d4c8da; font-size: 13px; text-decoration: none; }
@@ -167,7 +167,7 @@ h1 {
 .category-directory-card { min-height: 210px; }
 .category-directory-card h2 { font-size: 24px; }
 .category-directory-card .category-pill { font-size: 10px; }
-.home-share-link { min-height: 42px !important; padding: 0 15px !important; border: 1px solid #684a78; border-radius: 999px; color: #e6c7e7; font-size: 12px; text-decoration: none; }
+.home-share-link { display: inline-flex; min-height: 42px; flex: 0 0 auto; align-items: center; justify-content: center; padding: 0 15px; border: 1px solid #684a78; border-radius: 999px; color: #e6c7e7; font-size: 12px; text-decoration: none; white-space: nowrap; }
 .home-share-link:hover { border-color: var(--accent); color: white; }
 .guide-section { border-color: #674e81; background: radial-gradient(ellipse at 100% 0%,#382744 0%,#211a2d 50%,#17121f 100%); }
 .guide-form-row button { color: #190f21; }
@@ -241,7 +241,7 @@ h1 {
 @media (max-width: 760px) { .roleplay-box { grid-template-columns: 1fr; gap: 22px; } .roleplay-box-heading > p:last-child { max-width: 560px; } }
 @media (max-width: 580px) { .simple-nav { gap: 14px; } .roleplay-box { margin-bottom: 30px; padding: 20px; } .roleplay-box-content .start-roleplay { width: 100%; } }
 @media (max-width: 800px) { .home-nav { align-items: center; padding: 16px 0; } .home-nav nav { max-width: none; } .story-cards,.category-directory { grid-template-columns: repeat(2,minmax(0,1fr)); } .guide-section { grid-template-columns: 1fr; } }
-@media (max-width: 580px) { .home-shell,.listing-shell { width: min(100% - 28px,1180px); } .home-nav { align-items: stretch; flex-direction: column; gap: 12px; } .home-nav nav { display: grid; width: 100%; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; } .home-nav nav a { min-width: 0; padding: 7px 5px; font-size: 11px; text-align: center; white-space: normal; } .home-nav nav .home-share-link { padding: 7px 5px !important; } .home-hero { padding-top: 76px; } .section-heading,.share-callout { align-items: flex-start; flex-direction: column; } .story-cards,.category-links,.category-directory { grid-template-columns: 1fr; } .guide-form-row { flex-direction: column; } .guide-form-row button { min-height: 46px; } .site-footer { gap: 14px; } }
+@media (max-width: 580px) { .home-shell,.listing-shell { width: min(100% - 28px,1180px); } .home-nav { display: grid; min-height: 0; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 12px; padding: 15px 0 12px; } .home-nav nav { display: grid; width: 100%; max-width: none; grid-column: 1 / -1; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; } .home-nav nav a { min-width: 0; min-height: 40px; padding: 7px 8px; border: 1px solid #3c3049; border-radius: 999px; background: #191421; font-size: 12px; text-align: center; white-space: nowrap; } .home-nav .home-share-link { min-height: 40px; padding: 0 13px; } .home-hero { padding-top: 76px; } .section-heading,.share-callout { align-items: flex-start; flex-direction: column; } .story-cards,.category-links,.category-directory { grid-template-columns: 1fr; } .guide-form-row { flex-direction: column; } .guide-form-row button { min-height: 46px; } .site-footer { gap: 14px; } }
 @media (max-width: 780px) { .story-hero { padding-top: 60px; } }
 @media (max-width: 480px) { .story-shell { width: min(100% - 28px,1160px); } .submit-shell { width: min(100% - 28px,860px); } .story-nav { min-height: 64px; } .story-deck { font-size: 18px; } .story-footer { flex-direction: column; } }
 
