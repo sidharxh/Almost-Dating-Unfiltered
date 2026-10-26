@@ -59,19 +59,19 @@ h1 {
 .byline-item { display: inline-flex; gap: 9px; align-items: center; }
 .roleplay-hero-link { display: inline-flex; gap: 10px; align-items: center; margin-top: 32px; padding: 11px 16px; border: 1px solid #8d416c; border-radius: 999px; background: #2a1828; color: #ffd6e8; font-size: 12px; font-weight: 750; letter-spacing: .03em; text-decoration: none; }
 .roleplay-hero-link:hover { background: #3a1e36; }
-.roleplay-box { display: grid; max-width: 960px; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: clamp(22px,4vw,42px); align-items: center; margin: 0 auto 42px; padding: clamp(22px,4vw,38px); border: 1px solid #67446f; border-radius: 20px; background: radial-gradient(ellipse at 100% 0%,#382744 0%,#211a2d 50%,#17121f 100%); box-shadow: 0 18px 55px #08060d35; scroll-margin-top: 24px; }
+.roleplay-box { display: grid; max-width: 1040px; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(24px,4vw,48px); align-items: center; margin: 0 auto 42px; padding: clamp(24px,4vw,42px); border: 1px solid #67446f; border-radius: 20px; background: radial-gradient(ellipse at 100% 0%,#382744 0%,#211a2d 50%,#17121f 100%); box-shadow: 0 18px 55px #08060d35; scroll-margin-top: 24px; }
 .roleplay-box-heading .story-kicker { margin: 0 0 12px; }
 .roleplay-box-heading h2 { margin: 0 0 11px; color: var(--foreground); font: 500 clamp(27px,4vw,38px)/1.08 Georgia,serif; letter-spacing: -.025em; }
 .roleplay-box-heading > p:last-child { max-width: 360px; margin: 0; color: #c2b4cb; font-size: 13px; line-height: 1.7; }
 .roleplay-box-content { min-width: 0; }
-.roleplay-box-content .perspective-options { grid-template-columns: repeat(2,minmax(0,1fr)); }
-.roleplay-box-content .perspective-option { min-height: 88px; grid-template-columns: 36px minmax(0,1fr) 20px; gap: 10px; padding: 12px; }
+.roleplay-box-content .perspective-options { grid-template-columns: minmax(0,1fr); justify-items: stretch; }
+.roleplay-box-content .perspective-option { width: 100%; min-width: 0; min-height: 76px; grid-template-columns: 40px minmax(0,1fr) 22px; gap: 13px; padding: 14px 16px; text-align: left; }
 .roleplay-box-content .character-initial { width: 34px; height: 34px; font-size: 16px; }
-.roleplay-box-content .character-name { font-size: 12px; }
-.roleplay-box-content .character-description { font-size: 10px; }
+.roleplay-box-content .character-name { font-size: 14px; line-height: 1.35; }
+.roleplay-box-content .character-description { font-size: 12px; line-height: 1.5; }
 .roleplay-box-content .start-roleplay { margin-top: 12px; border-radius: 11px; }
 .roleplay-box-content .start-roleplay:disabled { opacity: .78; }
-.roleplay-box-content .interaction-status { min-height: 0; margin: 9px 0 0; font-size: 10px; }
+.roleplay-box-content .interaction-status { min-height: 0; margin: 11px 0 0; font-size: 11px; line-height: 1.55; }
 .confession { max-width: 660px; padding: clamp(22px,4vw,44px); border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(145deg,#1b1523 0%,#14101a 100%); color: #e8dfec; font: 18px/1.9 Georgia,serif; }
 .chapter-mark { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; color: var(--accent); font: 700 10px/1.4 Inter,system-ui,sans-serif; letter-spacing: .16em; }
 .chapter-mark span { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid #79405e; border-radius: 50%; color: #ffd8e9; }
@@ -80,10 +80,10 @@ h1 {
 .confession .story-note { margin: 34px 0 0; color: var(--muted); font: 12px/1.6 Inter,system-ui,sans-serif; }
 .choice-label { margin: 0 0 11px; color: #e8dce9; font-size: 12px; font-weight: 700; }
 .perspective-options { display: grid; gap: 10px; }
-.perspective-option { display: grid; grid-template-columns: 42px 1fr 22px; column-gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: #100d16a8; color: var(--foreground); text-align: left; cursor: pointer; }
+.perspective-option { display: grid; min-width: 0; grid-template-columns: 42px minmax(0,1fr) 22px; column-gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: #100d16a8; color: var(--foreground); text-align: left; cursor: pointer; }
 .perspective-option:hover,.perspective-option.is-selected { border-color: var(--accent); background: #351d31; }
 .character-initial { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 50%; background: #43243d; color: #ffc6df; font: 18px Georgia,serif; }
-.character-copy { display: grid; gap: 5px; }
+.character-copy { display: grid; min-width: 0; gap: 5px; }
 .character-name { font-size: 13px; font-weight: 700; }
 .character-description { color: var(--muted); font-size: 11px; line-height: 1.45; }
 .perspective-check { color: #25111e; font-size: 13px; font-weight: 900; }
@@ -118,10 +118,10 @@ h1 {
 .form-submit:disabled { background: #493043; color: #b7a6b5; cursor: wait; }
 .interaction-status { min-height: 20px; margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
 .perspective-option { min-height: 72px; }
-.perspective-option .character-name { grid-column: 2; }
 .home-shell,.listing-shell { width: min(100% - 44px, 1180px); margin-inline: auto; }
 .home-nav { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); }
-.home-nav nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: clamp(14px,3vw,34px); }
+.home-nav nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px clamp(12px,2.5vw,28px); }
+.home-nav nav a { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; padding: 0 8px; line-height: 1.2; white-space: nowrap; }
 .home-nav nav a,.section-heading > a,.site-footer a:not(.brand) { color: #d4c8da; font-size: 13px; text-decoration: none; }
 .home-nav nav a:hover,.section-heading > a:hover,.site-footer a:hover { color: var(--accent); }
 .home-hero { padding: clamp(80px,14vw,150px) 0 clamp(75px,12vw,130px); }
@@ -167,7 +167,7 @@ h1 {
 .category-directory-card { min-height: 210px; }
 .category-directory-card h2 { font-size: 24px; }
 .category-directory-card .category-pill { font-size: 10px; }
-.home-share-link { padding: 10px 15px; border: 1px solid #684a78; border-radius: 999px; color: #e6c7e7; font-size: 12px; text-decoration: none; }
+.home-share-link { min-height: 42px !important; padding: 0 15px !important; border: 1px solid #684a78; border-radius: 999px; color: #e6c7e7; font-size: 12px; text-decoration: none; }
 .home-share-link:hover { border-color: var(--accent); color: white; }
 .guide-section { border-color: #674e81; background: radial-gradient(ellipse at 100% 0%,#382744 0%,#211a2d 50%,#17121f 100%); }
 .guide-form-row button { color: #190f21; }
@@ -238,10 +238,10 @@ h1 {
 .image-upload-control.has-image::after { position: absolute; right: 12px; bottom: 12px; padding: 6px 9px; border: 1px solid #ffffff35; border-radius: 999px; background: #100d16c9; color: #f3edf9; content: "Change image"; font-size: 10px; pointer-events: none; }
 .image-upload-control.has-image.is-locked::after { content: "Image selected"; }
 @media (max-width: 800px) { .home-featured-groups { grid-template-columns: 1fr; } }
-@media (max-width: 760px) { .roleplay-box { grid-template-columns: 1fr; gap: 20px; } }
-@media (max-width: 580px) { .simple-nav { gap: 14px; } .roleplay-box { margin-bottom: 30px; padding: 20px; } .roleplay-box-content .perspective-options { grid-template-columns: 1fr; } .roleplay-box-content .start-roleplay { width: 100%; } }
-@media (max-width: 800px) { .home-nav { align-items: flex-start; padding: 20px 0; } .home-nav nav { max-width: 70%; } .story-cards,.category-directory { grid-template-columns: repeat(2,minmax(0,1fr)); } .guide-section { grid-template-columns: 1fr; } }
-@media (max-width: 580px) { .home-shell,.listing-shell { width: min(100% - 28px,1180px); } .home-nav { flex-direction: column; } .home-nav nav { max-width: none; justify-content: flex-start; gap: 12px 20px; } .home-hero { padding-top: 76px; } .section-heading,.share-callout { align-items: flex-start; flex-direction: column; } .story-cards,.category-links,.category-directory { grid-template-columns: 1fr; } .guide-form-row { flex-direction: column; } .guide-form-row button { min-height: 46px; } .site-footer { gap: 14px; } }
+@media (max-width: 760px) { .roleplay-box { grid-template-columns: 1fr; gap: 22px; } .roleplay-box-heading > p:last-child { max-width: 560px; } }
+@media (max-width: 580px) { .simple-nav { gap: 14px; } .roleplay-box { margin-bottom: 30px; padding: 20px; } .roleplay-box-content .start-roleplay { width: 100%; } }
+@media (max-width: 800px) { .home-nav { align-items: center; padding: 16px 0; } .home-nav nav { max-width: none; } .story-cards,.category-directory { grid-template-columns: repeat(2,minmax(0,1fr)); } .guide-section { grid-template-columns: 1fr; } }
+@media (max-width: 580px) { .home-shell,.listing-shell { width: min(100% - 28px,1180px); } .home-nav { align-items: stretch; flex-direction: column; gap: 12px; } .home-nav nav { display: grid; width: 100%; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; } .home-nav nav a { min-width: 0; padding: 7px 5px; font-size: 11px; text-align: center; white-space: normal; } .home-nav nav .home-share-link { padding: 7px 5px !important; } .home-hero { padding-top: 76px; } .section-heading,.share-callout { align-items: flex-start; flex-direction: column; } .story-cards,.category-links,.category-directory { grid-template-columns: 1fr; } .guide-form-row { flex-direction: column; } .guide-form-row button { min-height: 46px; } .site-footer { gap: 14px; } }
 @media (max-width: 780px) { .story-hero { padding-top: 60px; } }
 @media (max-width: 480px) { .story-shell { width: min(100% - 28px,1160px); } .submit-shell { width: min(100% - 28px,860px); } .story-nav { min-height: 64px; } .story-deck { font-size: 18px; } .story-footer { flex-direction: column; } }
 
