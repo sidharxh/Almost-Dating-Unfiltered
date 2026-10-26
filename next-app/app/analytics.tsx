@@ -1,45 +1,31 @@
 "use client";
 
-import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-
-const measurementId = "G-WWJH2R0QS6";
+import { useEffect } from "react";
 
 declare global {
   interface Window {
-    dataLayer: unknown[][];
+    dataLayer: unknown[];
     gtag: (...args: unknown[]) => void;
   }
 }
 
 export function Analytics() {
   const pathname = usePathname();
-  const [ready, setReady] = useState(false);
   const enabled = process.env.NODE_ENV === "production";
 
   useEffect(() => {
-    if (!enabled) return;
-
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = (...args: unknown[]) => window.dataLayer.push(args);
-    window.gtag("js", new Date());
-    window.gtag("config", measurementId, { send_page_view: false });
-    setReady(true);
-  }, [enabled]);
-
-  useEffect(() => {
-    if (!ready || pathname === "/admin") return;
+    if (!enabled || pathname === "/admin") return;
 
     window.gtag("event", "page_view", {
       page_path: pathname,
       page_location: window.location.href,
       page_title: document.title,
     });
-  }, [pathname, ready]);
+  }, [enabled, pathname]);
 
   useEffect(() => {
-    if (!ready || pathname === "/admin") return;
+    if (!enabled || pathname === "/admin") return;
 
     const trackClick = (event: MouseEvent) => {
       const target = event.target;
@@ -68,14 +54,7 @@ export function Analytics() {
 
     document.addEventListener("click", trackClick, true);
     return () => document.removeEventListener("click", trackClick, true);
-  }, [pathname, ready]);
+  }, [enabled, pathname]);
 
-  if (!enabled) return null;
-
-  return (
-    <Script
-      src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
-      strategy="afterInteractive"
-    />
-  );
+  return null;
 }

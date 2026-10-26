@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Analytics } from "./analytics";
 import VercelAnalytics from "@/components/vercel-analytics";
 import "./globals.css";
@@ -35,6 +36,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <Script id="google-tag-init" strategy="beforeInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+window.gtag = function(){window.dataLayer.push(arguments);};
+window.gtag('js', new Date());
+window.gtag('config', 'G-WWJH2R0QS6', { send_page_view: false });`}
+            </Script>
+            <Script
+              id="google-tag"
+              src="https://www.googletagmanager.com/gtag/js?id=G-WWJH2R0QS6"
+              strategy="afterInteractive"
+            />
+          </>
+        )}
         {children}
         <Analytics />
         <VercelAnalytics />
