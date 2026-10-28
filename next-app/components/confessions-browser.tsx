@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import StoryImageViewer from "@/components/story-image-viewer";
 
 type CategoryOption = { slug: string; label: string };
@@ -9,11 +10,19 @@ type StoryCard = { id: string; slug: string; title: string; category: string; su
 export default function ConfessionsBrowser({
   stories,
   categories,
+  initialCategory,
 }: {
   stories: StoryCard[];
   categories: CategoryOption[];
+  initialCategory: string;
 }) {
-  const [activeCategory, setActiveCategory] = useState("all");
+  const router = useRouter();
+  const pathname = usePathname();
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
+  function selectCategory(slug: string) {
+    setActiveCategory(slug);
+    router.replace(slug === "all" ? pathname : `${pathname}?category=${encodeURIComponent(slug)}`, { scroll: false });
+  }
   const selectedCategory = categories.find((category) => category.slug === activeCategory);
   const visibleStories = selectedCategory
     ? stories.filter((story) => story.category === selectedCategory.label)
@@ -24,12 +33,12 @@ export default function ConfessionsBrowser({
       <div className="confession-filter-bar">
         <p>Choose a topic</p>
         <div className="confession-filters" role="group" aria-label="Filter confessions by category">
-          <button type="button" className={activeCategory === "all" ? "is-active" : ""} aria-pressed={activeCategory === "all"} aria-controls="confession-results" onClick={() => setActiveCategory("all")}>
+          <button type="button" className={activeCategory === "all" ? "is-active" : ""} aria-pressed={activeCategory === "all"} aria-controls="confession-results" onClick={() => selectCategory("all")}>
             All confessions{stories.length > 0 && <span>{stories.length}</span>}
           </button>
           {categories.map((category) => {
             const count = stories.filter((story) => story.category === category.label).length;
-            return <button key={category.slug} type="button" className={activeCategory === category.slug ? "is-active" : ""} aria-pressed={activeCategory === category.slug} aria-controls="confession-results" onClick={() => setActiveCategory(category.slug)}>
+            return <button key={category.slug} type="button" className={activeCategory === category.slug ? "is-active" : ""} aria-pressed={activeCategory === category.slug} aria-controls="confession-results" onClick={() => selectCategory(category.slug)}>
               {category.label}{count > 0 && <span>{count}</span>}
             </button>;
           })}
@@ -51,7 +60,7 @@ export default function ConfessionsBrowser({
         <h2>{selectedCategory ? "No stories in this category yet." : "The first confession is waiting to be told."}</h2>
         <p>{selectedCategory ? "Try another category, or share a story to start this collection." : "Stories appear here after review. Browse the categories or send in a confession of your own."}</p>
         <div className="empty-actions">
-          {selectedCategory && <button type="button" onClick={() => setActiveCategory("all")}>View all confessions</button>}
+          {selectedCategory && <button type="button" onClick={() => selectCategory("all")}>View all confessions</button>}
           <a href="/submit-story">Share a confession <span aria-hidden="true">→</span></a>
         </div>
       </div>}

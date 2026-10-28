@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "Almost — Unfiltered Dating",
     description: "Anonymous dating confessions, told straight.",
   },
-  icons: { icon: "/icon.svg" },
+  icons: { icon: "/icon.svg?v=2", shortcut: "/icon.svg?v=2" },
   robots: { index: true, follow: true },
 };
 

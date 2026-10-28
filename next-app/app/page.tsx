@@ -7,7 +7,7 @@ import HomeNavigation from "@/components/home-navigation";
 
 export const metadata: Metadata = {
   title: "Dating Confessions, Unfiltered",
-  description: "Read anonymous dating confessions, choose whether to play as the woman or man in a story, and step into a character-based roleplay chat.",
+  description: "Read anonymous dating confessions and register interest in intimate image packages inspired by each story.",
   alternates: { canonical: "https://almostunfiltereddating.com/" },
 };
 
@@ -29,17 +29,17 @@ export default async function HomePage() {
       <HomeNavigation />
       <section className="home-hero home-hero-compact">
         <div className="home-hero-copy"><p className="story-kicker">Anonymous stories · Unfiltered Dating</p>
-          <h1>Dating confessions.<br /><em>Choose your role.</em></h1>
-          <p className="home-intro">Choose a confession, play as the woman or man in the story, then roleplay a conversation with the other character.</p>
+          <h1>Dating confessions.<br /><em>Stories, unfiltered.</em></h1>
+          <p className="home-intro">Read anonymous dating stories and explore an intimate image package inspired by each confession.</p>
           <div className="home-actions"><a className="primary-link" href="/confessions">Browse confessions <span aria-hidden="true">→</span></a><a className="secondary-link" href="#story-categories">Explore categories</a></div>
         </div>
-        <aside className="home-hero-note" aria-label="How story roleplay works"><span className="hero-note-number">READ · CHOOSE · ROLEPLAY</span><ol><li><span>01</span> Pick a confession</li><li><span>02</span> Choose the woman’s or man’s role</li><li><span>03</span> Start a chat with the other character</li></ol><a href="/confessions">Find a story <span aria-hidden="true">↗</span></a></aside>
+        <aside className="home-hero-note" aria-label="Explore dating confessions"><span className="hero-note-number">READ · EXPLORE · FOLLOW</span><ol><li><span>01</span> Browse dating confessions</li><li><span>02</span> Find a story that draws you in</li><li><span>03</span> Register interest in its image package</li></ol><a href="/confessions">Find a story <span aria-hidden="true">↗</span></a></aside>
       </section>
       <section id="story-categories" className="home-category-section" aria-labelledby="category-title">
         <div className="section-heading"><div><p className="story-kicker">Choose what you want to read</p><h2 id="category-title">Explore confessions</h2></div><a href="/categories">View every topic →</a></div>
         <div className="home-category-grid">{STORY_CATEGORIES.map((category, index) => {
           const count = stories.filter((story) => story.category === category.label).length;
-          return <a className="home-category-card" href={`/categories/${category.slug}`} key={category.slug}><span className="home-category-index">{String(index + 1).padStart(2, "0")}</span><strong>{category.label}</strong><small className="home-category-tease">{category.description}</small><span className="home-category-meta">{count > 0 ? `${count} ${count === 1 ? "confession" : "confessions"}` : "Read this topic"}<span aria-hidden="true">↗</span></span></a>;
+          return <a className="home-category-card" href={`/confessions?category=${category.slug}`} key={category.slug}><span className="home-category-index">{String(index + 1).padStart(2, "0")}</span><strong>{category.label}</strong><small className="home-category-tease">{category.description}</small><span className="home-category-meta">{count > 0 ? `${count} ${count === 1 ? "confession" : "confessions"}` : "Read this topic"}<span aria-hidden="true">↗</span></span></a>;
         })}</div>
       </section>
       {featuredStories.length > 0 && <section className="home-featured" aria-labelledby="featured-title">

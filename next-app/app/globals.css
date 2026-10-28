@@ -57,21 +57,25 @@ h1 {
 .story-deck { max-width: 650px; color: #d0c5d6; font: 20px/1.6 Georgia,serif; }
 .story-byline { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; color: var(--muted); font-size: 12px; }
 .byline-item { display: inline-flex; gap: 9px; align-items: center; }
-.roleplay-hero-link { display: inline-flex; gap: 10px; align-items: center; margin-top: 32px; padding: 11px 16px; border: 1px solid #8d416c; border-radius: 999px; background: #2a1828; color: #ffd6e8; font-size: 12px; font-weight: 750; letter-spacing: .03em; text-decoration: none; }
-.roleplay-hero-link:hover { background: #3a1e36; }
-.roleplay-box { display: grid; max-width: 1040px; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(24px,4vw,48px); align-items: center; margin: 0 auto 42px; padding: clamp(24px,4vw,42px); border: 1px solid #67446f; border-radius: 20px; background: radial-gradient(ellipse at 100% 0%,#382744 0%,#211a2d 50%,#17121f 100%); box-shadow: 0 18px 55px #08060d35; scroll-margin-top: 24px; }
-.roleplay-box-heading .story-kicker { margin: 0 0 12px; }
-.roleplay-box-heading h2 { margin: 0 0 11px; color: var(--foreground); font: 500 clamp(27px,4vw,38px)/1.08 Georgia,serif; letter-spacing: -.025em; }
-.roleplay-box-heading > p:last-child { max-width: 360px; margin: 0; color: #c2b4cb; font-size: 13px; line-height: 1.7; }
-.roleplay-box-content { min-width: 0; }
-.roleplay-box-content .perspective-options { grid-template-columns: minmax(0,1fr); justify-items: stretch; }
-.roleplay-box-content .perspective-option { width: 100%; min-width: 0; min-height: 76px; grid-template-columns: 40px minmax(0,1fr) 22px; gap: 13px; padding: 14px 16px; text-align: left; }
-.roleplay-box-content .character-initial { width: 34px; height: 34px; font-size: 16px; }
-.roleplay-box-content .character-name { font-size: 14px; line-height: 1.35; }
-.roleplay-box-content .character-description { font-size: 12px; line-height: 1.5; }
-.roleplay-box-content .start-roleplay { margin-top: 12px; border-radius: 11px; }
-.roleplay-box-content .start-roleplay:disabled { opacity: .78; }
-.roleplay-box-content .interaction-status { min-height: 0; margin: 11px 0 0; font-size: 11px; line-height: 1.55; }
+.image-package-link { display: inline-flex; gap: 10px; align-items: center; margin-top: 32px; padding: 11px 16px; border: 1px solid #8d416c; border-radius: 999px; background: #2a1828; color: #ffd6e8; font-size: 12px; font-weight: 750; letter-spacing: .03em; text-decoration: none; }
+.image-package-link:hover { background: #3a1e36; }
+.image-package-box { display: grid; max-width: 1040px; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(24px,4vw,48px); align-items: center; margin: 0 auto 42px; padding: clamp(24px,4vw,42px); border: 1px solid #67446f; border-radius: 20px; background: radial-gradient(ellipse at 100% 0%,#382744 0%,#211a2d 50%,#17121f 100%); box-shadow: 0 18px 55px #08060d35; scroll-margin-top: 24px; }
+.image-package-heading .story-kicker { margin: 0 0 12px; }
+.image-package-heading h2 { margin: 0 0 11px; color: var(--foreground); font: 500 clamp(27px,4vw,38px)/1.08 Georgia,serif; letter-spacing: -.025em; }
+.image-package-heading > p:last-child { max-width: 360px; margin: 0; color: #c2b4cb; font-size: 13px; line-height: 1.7; }
+.image-package-content { min-width: 0; }
+.image-package-content .image-package-cta { margin-top: 12px; border-radius: 11px; }
+.image-package-content .interaction-status { min-height: 0; margin: 11px 0 0; font-size: 11px; line-height: 1.55; }
+.image-package-form { width: 100%; }
+.story-share { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 8px 28px; align-items: center; max-width: 1040px; margin: 0 auto 42px; padding: clamp(22px,4vw,34px); border: 1px solid #44354f; border-radius: 18px; background: linear-gradient(120deg,#1d1726,#17121f 72%); }
+.story-share-copy .story-kicker { margin: 0 0 10px; }
+.story-share-copy h2 { margin: 0 0 8px; color: var(--foreground); font: 500 clamp(24px,3.5vw,32px)/1.12 Georgia,serif; }
+.story-share-copy > p:last-child { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.story-share-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 9px; }
+.story-share-actions button,.story-share-actions a { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; gap: 9px; padding: 10px 13px; border: 1px solid #73527a; border-radius: 999px; background: linear-gradient(110deg,#422342,#30203d); color: #f1e4f4; font: 700 11px/1.2 Inter,ui-sans-serif,system-ui,sans-serif; text-decoration: none; cursor: pointer; }
+.story-share-actions button:hover,.story-share-actions a:hover { border-color: var(--accent); background: linear-gradient(110deg,#51304e,#382747); }
+.story-share-actions .story-share-copy-link { background: transparent; color: #d8c6df; }
+.story-share-status { grid-column: 1 / -1; margin: 4px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
 .confession { max-width: 660px; padding: clamp(22px,4vw,44px); border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(145deg,#1b1523 0%,#14101a 100%); color: #e8dfec; font: 18px/1.9 Georgia,serif; }
 .chapter-mark { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; color: var(--accent); font: 700 10px/1.4 Inter,system-ui,sans-serif; letter-spacing: .16em; }
 .chapter-mark span { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid #79405e; border-radius: 50%; color: #ffd8e9; }
@@ -79,17 +83,6 @@ h1 {
 .confession blockquote { margin: 32px 0; padding: 4px 0 4px 20px; border-left: 2px solid var(--accent); color: #ffd6e8; font: italic 22px/1.6 Georgia,serif; }
 .confession .story-note { margin: 34px 0 0; color: var(--muted); font: 12px/1.6 Inter,system-ui,sans-serif; }
 .choice-label { margin: 0 0 11px; color: #e8dce9; font-size: 12px; font-weight: 700; }
-.perspective-options { display: grid; gap: 10px; }
-.perspective-option { display: grid; min-width: 0; grid-template-columns: 42px minmax(0,1fr) 22px; column-gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: #100d16a8; color: var(--foreground); text-align: left; cursor: pointer; }
-.perspective-option:hover,.perspective-option.is-selected { border-color: var(--accent); background: #351d31; }
-.character-initial { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 50%; background: #43243d; color: #ffc6df; font: 18px Georgia,serif; }
-.character-copy { display: grid; min-width: 0; gap: 5px; }
-.character-name { font-size: 13px; font-weight: 700; }
-.character-description { color: var(--muted); font-size: 11px; line-height: 1.45; }
-.perspective-check { color: #25111e; font-size: 13px; font-weight: 900; }
-.perspective-option.is-selected .perspective-check { display: grid; width: 21px; height: 21px; place-items: center; border-radius: 50%; background: var(--accent); }
-.start-roleplay { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 14px 17px; border: 0; border-radius: 999px; background: var(--accent-gradient); color: #1c1022; font-weight: 800; cursor: pointer; }
-.start-roleplay:disabled { background: #493043; color: #b7a6b5; cursor: not-allowed; }
 .story-footer { display: flex; justify-content: space-between; gap: 16px; padding: 22px 0 34px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
 .submit-shell { width: min(100% - 40px, 860px); margin-inline: auto; }
 .back-link { color: var(--muted); font-size: 12px; text-decoration: none; }
@@ -117,7 +110,6 @@ h1 {
 .form-submit { background: var(--accent-gradient); color: #1c1022; cursor: pointer; }
 .form-submit:disabled { background: #493043; color: #b7a6b5; cursor: wait; }
 .interaction-status { min-height: 20px; margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
-.perspective-option { min-height: 72px; }
 .home-shell,.listing-shell { width: min(100% - 44px, 1180px); margin-inline: auto; }
 .home-nav { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: clamp(16px,2vw,28px); border-bottom: 1px solid var(--line); }
 .home-nav nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px clamp(12px,2.5vw,28px); }
@@ -238,8 +230,8 @@ h1 {
 .image-upload-control.has-image::after { position: absolute; right: 12px; bottom: 12px; padding: 6px 9px; border: 1px solid #ffffff35; border-radius: 999px; background: #100d16c9; color: #f3edf9; content: "Change image"; font-size: 10px; pointer-events: none; }
 .image-upload-control.has-image.is-locked::after { content: "Image selected"; }
 @media (max-width: 800px) { .home-featured-groups { grid-template-columns: 1fr; } }
-@media (max-width: 760px) { .roleplay-box { grid-template-columns: 1fr; gap: 22px; } .roleplay-box-heading > p:last-child { max-width: 560px; } }
-@media (max-width: 580px) { .simple-nav { gap: 14px; } .roleplay-box { margin-bottom: 30px; padding: 20px; } .roleplay-box-content .start-roleplay { width: 100%; } }
+@media (max-width: 760px) { .image-package-box { grid-template-columns: 1fr; gap: 22px; } .image-package-heading > p:last-child { max-width: 560px; } .story-share { grid-template-columns: 1fr; gap: 18px; } .story-share-actions { justify-content: flex-start; } }
+@media (max-width: 580px) { .simple-nav { gap: 14px; } .image-package-box { margin-bottom: 30px; padding: 20px; } .image-package-content .guide-form-row { grid-template-columns: 1fr; } .story-share { margin-bottom: 30px; padding: 20px; } .story-share-actions { display: grid; grid-template-columns: 1fr 1fr; } .story-share-actions button,.story-share-actions a { min-height: 44px; padding: 9px 10px; text-align: center; } }
 @media (max-width: 800px) { .home-nav { align-items: center; padding: 16px 0; } .home-nav nav { max-width: none; } .story-cards,.category-directory { grid-template-columns: repeat(2,minmax(0,1fr)); } .guide-section { grid-template-columns: 1fr; } }
 @media (max-width: 580px) { .home-shell,.listing-shell { width: min(100% - 28px,1180px); } .home-nav { display: grid; min-height: 0; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 12px; padding: 15px 0 12px; } .home-nav nav { display: grid; width: 100%; max-width: none; grid-column: 1 / -1; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; } .home-nav nav a { min-width: 0; min-height: 40px; padding: 7px 8px; border: 1px solid #3c3049; border-radius: 999px; background: #191421; font-size: 12px; text-align: center; white-space: nowrap; } .home-nav .home-share-link { min-height: 40px; padding: 0 13px; } .home-hero { padding-top: 76px; } .section-heading,.share-callout { align-items: flex-start; flex-direction: column; } .story-cards,.category-links,.category-directory { grid-template-columns: 1fr; } .guide-form-row { flex-direction: column; } .guide-form-row button { min-height: 46px; } .site-footer { gap: 14px; } }
 @media (max-width: 780px) { .story-hero { padding-top: 60px; } }

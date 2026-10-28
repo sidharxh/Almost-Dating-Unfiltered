@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import RoleplayPanel from "@/components/roleplay-panel";
+import StoryImagePackageInterest from "@/components/story-image-package-interest";
+import StoryShare from "@/components/story-share";
 import StoryImageViewer from "@/components/story-image-viewer";
 import { getStories, getStory, storyPath } from "@/lib/stories";
 
@@ -18,14 +19,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const story = await getStory(cleanSlug(slug));
   if (!story) return { title: "Confession not found", robots: { index: false, follow: false } };
   const canonical = `${siteUrl}${storyPath(story)}`;
-  const searchDescription = `Anonymous ${story.category.toLowerCase()} dating confession. Choose a role and roleplay the scene: ${story.summary}`.slice(0, 160).trimEnd();
+  const shareImage = `${canonical}/opengraph-image`;
+  const searchDescription = `Read this anonymous ${story.category.toLowerCase()} dating confession and register interest in its image package: ${story.summary}`.slice(0, 160).trimEnd();
   return {
     title: story.title,
     description: searchDescription,
     keywords: ["dating confession", "anonymous dating story", story.category],
     alternates: { canonical },
-    openGraph: { type: "article", title: story.title, description: searchDescription, url: canonical, siteName: "Almost — Unfiltered Dating", publishedTime: story.createdAt, section: story.category, ...(story.coverImageUrl ? { images: [{ url: story.coverImageUrl, alt: story.coverImageAlt }] } : {}) },
-    twitter: { card: story.coverImageUrl ? "summary_large_image" : "summary", title: story.title, description: searchDescription, ...(story.coverImageUrl ? { images: [story.coverImageUrl] } : {}) },
+    openGraph: { type: "article", title: story.title, description: searchDescription, url: canonical, siteName: "Almost — Unfiltered Dating", publishedTime: story.createdAt, section: story.category, images: [{ url: shareImage, alt: `Almost. share card for ${story.title}` }] },
+    twitter: { card: "summary_large_image", title: story.title, description: searchDescription, images: [`${canonical}/twitter-image`] },
   };
 }
 
@@ -37,7 +39,7 @@ export default async function ConfessionPage({ params }: PageProps) {
   const canonical = `${siteUrl}${storyPath(story)}`;
   const structuredData = {
     "@context": "https://schema.org", "@type": "Article", headline: story.title,
-    description: `Anonymous ${story.category.toLowerCase()} dating confession. Choose a role and roleplay the scene: ${story.summary}`.slice(0, 160).trimEnd(),
+    description: `Read this anonymous ${story.category.toLowerCase()} dating confession: ${story.summary}`.slice(0, 160).trimEnd(),
     articleSection: story.category, datePublished: story.createdAt,
     dateModified: story.createdAt, inLanguage: "en", keywords: ["dating confession", "anonymous dating story", story.category].join(", "),
     articleBody: story.body, wordCount: story.body.trim().split(/\s+/).filter(Boolean).length,
@@ -66,13 +68,14 @@ export default async function ConfessionPage({ params }: PageProps) {
         <h1 id="story-title">{story.title}</h1>
         <p className="story-deck">{story.summary}</p>
         <div className="story-byline"><span>Anonymous confession</span><span aria-hidden="true">·</span><time dateTime={story.createdAt}>{new Date(story.createdAt).toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}</time></div>
-        <a className="roleplay-hero-link" href="#roleplay-action">Choose your role for roleplay <span aria-hidden="true">↓</span></a>
+        <a className="image-package-link" href="#image-package">See the image package <span aria-hidden="true">↓</span></a>
       </section>
-      <RoleplayPanel storySlug={story.slug} storyCategory={story.category} />
+      <StoryImagePackageInterest storySlug={story.slug} storyCategory={story.category} />
       <article id="the-confession" className="confession confession-full" aria-label="Dating confession">
         <div className="chapter-mark"><span>01</span> THE CONFESSION</div>
         <div className="confession-body">{paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
       </article>
+      <StoryShare title={story.title} storyUrl={canonical} imageUrl={`${canonical}/opengraph-image`} />
       <footer className="story-footer"><a href="/confessions">Browse all confessions</a><span>{story.category}</span></footer>
     </main>
   );
