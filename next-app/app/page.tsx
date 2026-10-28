@@ -7,7 +7,7 @@ import HomeNavigation from "@/components/home-navigation";
 
 export const metadata: Metadata = {
   title: "Dating Confessions, Unfiltered",
-  description: "Read anonymous dating confessions and request images made for the stories you love.",
+  description: "Read anonymous dating confessions to recognize patterns, see different sides of dating situations, and request images connected to each story.",
   alternates: { canonical: "https://almostunfiltereddating.com/" },
 };
 
@@ -30,17 +30,17 @@ export default async function HomePage() {
       <section className="home-hero home-hero-compact">
         <div className="home-hero-copy"><p className="story-kicker">Anonymous stories · Unfiltered Dating</p>
           <h1>Dating confessions.<br /><em>Stories, unfiltered.</em></h1>
-          <p className="home-intro">Read anonymous dating confessions, then request images made for the story you’re reading.</p>
+          <p className="home-intro">Dating can be hard to read. Anonymous confessions show the feelings, choices, and mixed signals behind real dating situations—and the images connected to each story.</p>
           <div className="home-actions"><a className="primary-link" href="/confessions">Browse confessions <span aria-hidden="true">→</span></a><a className="secondary-link" href="#story-categories">Explore categories</a></div>
         </div>
         <aside className="home-hero-note" aria-labelledby="home-journey-title">
-          <p className="hero-note-number">THE ALMOST EXPERIENCE</p>
-          <h2 id="home-journey-title">Read the story. Request its images.</h2>
-          <p className="home-journey-intro">Every image request is tied to the confession you’re reading.</p>
+          <p className="hero-note-number">A CLOSER LOOK AT DATING</p>
+          <h2 id="home-journey-title">See what happens beneath the surface.</h2>
+          <p className="home-journey-intro">Read a confession, understand the situation from another angle, and ask to see its related images.</p>
           <ol>
-            <li><span className="journey-step-number">01</span><span className="journey-step-copy"><strong>Choose a confession</strong><small>Browse stories by category.</small></span></li>
-            <li><span className="journey-step-number">02</span><span className="journey-step-copy"><strong>Read the story</strong><small>Open the confession that caught your attention.</small></span></li>
-            <li><span className="journey-step-number">03</span><span className="journey-step-copy"><strong>Request its images</strong><small>Leave your email for an availability update.</small></span></li>
+            <li><span className="journey-step-number">01</span><span className="journey-step-copy"><strong>Find a situation you recognize</strong><small>Choose from confessions about dating, attraction, trust, and more.</small></span></li>
+            <li><span className="journey-step-number">02</span><span className="journey-step-copy"><strong>Read what happened</strong><small>Follow the choices, feelings, and signals in the story.</small></span></li>
+            <li><span className="journey-step-number">03</span><span className="journey-step-copy"><strong>Ask to see its images</strong><small>Request an email when images for that confession are ready.</small></span></li>
           </ol>
           <a href="/confessions">Browse confessions <span aria-hidden="true">↗</span></a>
         </aside>

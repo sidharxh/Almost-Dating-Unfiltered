@@ -69,9 +69,9 @@ export default async function ConfessionPage({ params }: PageProps) {
         <h1 id="story-title">{story.title}</h1>
         <p className="story-deck">{story.summary}</p>
         <div className="story-byline"><span>Anonymous confession</span><span aria-hidden="true">·</span><time dateTime={story.createdAt}>{new Date(story.createdAt).toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}</time></div>
-        <a className="image-package-link" href="#image-package">Request images for this confession <span aria-hidden="true">↓</span></a>
+        <a className="image-package-link" href="#image-package">See the images connected to this story <span aria-hidden="true">↓</span></a>
       </section>
-      <StoryImagePackageInterest storySlug={story.slug} storyCategory={story.category} />
+      <StoryImagePackageInterest storySlug={story.slug} storyCategory={story.category} storyTitle={story.title} imageUrl={story.coverImageUrl} />
       <article id="the-confession" className="confession confession-full" aria-label="Dating confession">
         <div className="chapter-mark"><span>01</span> THE CONFESSION</div>
         <div className="confession-body">{paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
