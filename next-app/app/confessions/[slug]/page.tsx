@@ -20,11 +20,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!story) return { title: "Confession not found", robots: { index: false, follow: false } };
   const canonical = `${siteUrl}${storyPath(story)}`;
   const shareImage = `${canonical}/opengraph-image`;
-  const searchDescription = `Read this anonymous ${story.category.toLowerCase()} dating confession and register interest in its image package: ${story.summary}`.slice(0, 160).trimEnd();
+  const searchDescription = `Read “${story.title},” an anonymous ${story.category.toLowerCase()} dating confession. Request its related images and get notified when they’re ready to view or download.`.slice(0, 160).trimEnd();
   return {
     title: story.title,
     description: searchDescription,
-    keywords: ["dating confession", "anonymous dating story", story.category],
+    keywords: ["dating confession", "anonymous dating story", "dating story images", "confession images", story.category],
     alternates: { canonical },
     openGraph: { type: "article", title: story.title, description: searchDescription, url: canonical, siteName: "Almost — Unfiltered Dating", publishedTime: story.createdAt, section: story.category, images: [{ url: shareImage, alt: `Almost. share card for ${story.title}` }] },
     twitter: { card: "summary_large_image", title: story.title, description: searchDescription, images: [`${canonical}/twitter-image`] },
@@ -39,10 +39,11 @@ export default async function ConfessionPage({ params }: PageProps) {
   const canonical = `${siteUrl}${storyPath(story)}`;
   const structuredData = {
     "@context": "https://schema.org", "@type": "Article", headline: story.title,
-    description: `Read this anonymous ${story.category.toLowerCase()} dating confession: ${story.summary}`.slice(0, 160).trimEnd(),
+    description: `Read “${story.title},” an anonymous ${story.category.toLowerCase()} dating confession. Request its related images and get notified when they’re ready to view or download.`.slice(0, 160).trimEnd(),
     articleSection: story.category, datePublished: story.createdAt,
     dateModified: story.createdAt, inLanguage: "en", keywords: ["dating confession", "anonymous dating story", story.category].join(", "),
     articleBody: story.body, wordCount: story.body.trim().split(/\s+/).filter(Boolean).length,
+    about: [{ "@type": "Thing", name: story.category }, { "@type": "Thing", name: "Images for this dating confession" }],
     ...(story.coverImageUrl ? { image: story.coverImageUrl } : {}),
     author: { "@type": "Person", name: "Anonymous" }, mainEntityOfPage: canonical,
     isAccessibleForFree: true,
@@ -68,7 +69,7 @@ export default async function ConfessionPage({ params }: PageProps) {
         <h1 id="story-title">{story.title}</h1>
         <p className="story-deck">{story.summary}</p>
         <div className="story-byline"><span>Anonymous confession</span><span aria-hidden="true">·</span><time dateTime={story.createdAt}>{new Date(story.createdAt).toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}</time></div>
-        <a className="image-package-link" href="#image-package">See the image package <span aria-hidden="true">↓</span></a>
+        <a className="image-package-link" href="#image-package">Request images for this confession <span aria-hidden="true">↓</span></a>
       </section>
       <StoryImagePackageInterest storySlug={story.slug} storyCategory={story.category} />
       <article id="the-confession" className="confession confession-full" aria-label="Dating confession">

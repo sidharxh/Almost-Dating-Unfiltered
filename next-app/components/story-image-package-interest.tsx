@@ -7,7 +7,7 @@ type Props = { storySlug: string; storyCategory: string };
 function supabaseConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-  if (!url || !key) throw new Error("The image package interest form is not configured.");
+  if (!url || !key) throw new Error("The story image interest form is not configured.");
   return { url: url.replace(/\/$/, ""), key };
 }
 
@@ -35,7 +35,7 @@ export default function StoryImagePackageInterest({ storySlug, storyCategory }: 
       await saveInterestEvent({ story_slug: storySlug, story_category: storyCategory, event_type: "package_button_clicked", email: null });
       setClickStatus("saved");
     } catch (error) {
-      console.warn("Image package click could not be recorded.", error instanceof Error ? error.message : "Unknown error");
+      console.warn("Story image request could not be recorded.", error instanceof Error ? error.message : "Unknown error");
       setClickStatus("failed");
     }
   }
@@ -48,7 +48,7 @@ export default function StoryImagePackageInterest({ storySlug, storyCategory }: 
       await saveInterestEvent({ story_slug: storySlug, story_category: storyCategory, event_type: "email_submitted", email: email.trim().toLowerCase() });
       setFormStatus("saved");
     } catch (error) {
-      console.warn("Image package email could not be recorded.", error instanceof Error ? error.message : "Unknown error");
+      console.warn("Story image email could not be recorded.", error instanceof Error ? error.message : "Unknown error");
       setFormStatus("failed");
     }
   }
@@ -56,15 +56,15 @@ export default function StoryImagePackageInterest({ storySlug, storyCategory }: 
   return (
     <section className="image-package-box" id="image-package" aria-labelledby="image-package-title">
       <div className="image-package-heading">
-        <p className="story-kicker">Images inspired by this confession</p>
-        <h2 id="image-package-title">Get the image package.</h2>
-        <p>We’re checking interest in a story-specific intimate image package. No payment is taken now. Leave your email if you’d like us to contact you if it becomes available.</p>
+        <p className="story-kicker">Images for this confession</p>
+        <h2 id="image-package-title">Want the images from this story?</h2>
+        <p>Request the images made for this confession. Leave your email and we’ll let you know when they’re ready to view or download.</p>
       </div>
       <div className="image-package-content">
         {!isOpen ? (
-          <button className="image-package-cta" type="button" onClick={openRequest}>Get this image package <span aria-hidden="true">→</span></button>
+          <button className="image-package-cta" type="button" onClick={openRequest}>Request these story images <span aria-hidden="true">→</span></button>
         ) : formStatus === "saved" ? (
-          <p className="interaction-status" role="status">Your interest is recorded. We’ll contact you if an image package for this confession becomes available.</p>
+          <p className="interaction-status" role="status">Request received. We’ll email you when images for this confession are ready to view or download.</p>
         ) : (
           <form className="guide-form image-package-form" onSubmit={submitEmail}>
             <label htmlFor="image-package-email">Email address</label>
@@ -73,7 +73,7 @@ export default function StoryImagePackageInterest({ storySlug, storyCategory }: 
               <button type="submit" disabled={formStatus === "saving"}>{formStatus === "saving" ? "Saving…" : "Register interest"}<span aria-hidden="true">→</span></button>
             </div>
             <p className="interaction-status" role="status" aria-live="polite">
-              {formStatus === "failed" ? "We couldn’t save your email. Please try again." : clickStatus === "failed" ? "Your email can still be submitted, but the button click wasn’t recorded." : "No payment now. We’ll use this email only to follow up about this image package."}
+              {formStatus === "failed" ? "We couldn’t save your email. Please try again." : clickStatus === "failed" ? "Your email can still be submitted, but the request wasn’t recorded." : "We’ll only use your email to update you about images for this confession."}
             </p>
           </form>
         )}
