@@ -7,7 +7,7 @@ import StoryImageViewer from "@/components/story-image-viewer";
 const siteUrl = "https://almostunfiltereddating.com";
 type Props = { params: Promise<{ category: string }> };
 
-export async function generateStaticParams() { return STORY_CATEGORIES.map(({ slug }) => ({ category: slug })); }
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category: slug } = await params;

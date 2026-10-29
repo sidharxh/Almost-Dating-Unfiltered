@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://almostunfiltereddating.com/" },
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const stories = await getStories();
   const featuredStories = STORY_CATEGORIES

@@ -4,6 +4,8 @@ import { getStories, storyPath } from "@/lib/stories";
 
 const siteUrl = "https://almostunfiltereddating.com";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const stories = await getStories();
   const publishedCategorySlugs = new Set(stories.flatMap((story) => {
@@ -21,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: story.createdAt,
     changeFrequency: "monthly",
     priority: 0.8,
+    ...(story.coverImageUrl ? { images: [story.coverImageUrl] } : {}),
   }));
   return [...staticPages, ...storyPages];
 }
