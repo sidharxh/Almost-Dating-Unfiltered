@@ -6,8 +6,8 @@ import StoryImageViewer from "@/components/story-image-viewer";
 import HomeNavigation from "@/components/home-navigation";
 
 export const metadata: Metadata = {
-  title: "Dating Confessions, Unfiltered",
-  description: "Read anonymous dating confessions to recognize patterns, see different sides of dating situations, and request images connected to each story.",
+  title: "Anonymous Dating Confessions & Stories",
+  description: "Read anonymous dating confessions about attraction, betrayal, mixed signals, and complicated relationships. Browse stories by topic and view related images.",
   alternates: { canonical: "https://almostunfiltereddating.com/" },
 };
 

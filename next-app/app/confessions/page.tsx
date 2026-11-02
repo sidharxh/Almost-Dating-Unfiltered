@@ -4,13 +4,13 @@ import { getStories, storyPath } from "@/lib/stories";
 import ConfessionsBrowser from "@/components/confessions-browser";
 
 export const metadata: Metadata = {
-  title: "Read Anonymous Dating Confessions",
-  description: "Browse anonymous dating confessions about attraction, betrayal, mixed signals, and complicated relationship choices by category.",
+  title: "Anonymous Dating Confessions by Topic",
+  description: "Read anonymous dating confessions about attraction, betrayal, first dates, and mixed signals. Browse every story by topic.",
   alternates: { canonical: "https://almostunfiltereddating.com/confessions" },
   openGraph: {
     type: "website",
-    title: "Read Anonymous Dating Confessions",
-    description: "Read anonymous dating confessions organized by story category.",
+    title: "Anonymous Dating Confessions by Topic",
+    description: "Browse anonymous dating confession stories organized by topic, from betrayal and secret affairs to first dates and mixed signals.",
     url: "https://almostunfiltereddating.com/confessions",
     siteName: "Almost — Unfiltered Dating",
   },
@@ -32,7 +32,7 @@ export default async function ConfessionsPage({ searchParams }: ConfessionsPageP
   return <main className="listing-shell">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList).replace(/</g, "\\u003c") }} />
     <header className="story-nav"><a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a><nav className="simple-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/submit-story">Share a story</a></nav></header>
-    <section className="listing-hero confession-listing-hero"><p className="story-kicker">Unfiltered Dating · Anonymous confessions</p><h1>Find a story that pulls you in.</h1><p>Browse anonymous dating confessions by category, or read every story from the full collection.</p></section>
+    <section className="listing-hero confession-listing-hero"><p className="story-kicker">Unfiltered Dating · Anonymous confessions</p><h1>Anonymous dating confessions.</h1><p>Read dating stories about attraction, betrayal, mixed signals, and complicated relationships. Choose a topic or browse every confession.</p></section>
     <ConfessionsBrowser initialCategory={initialCategory} stories={stories.map(({ id, slug, title, category, summary, coverImageUrl, coverImageAlt }) => ({ id, slug, title, category, summary, coverImageUrl, coverImageAlt }))} categories={STORY_CATEGORIES.map(({ slug, label }) => ({ slug, label }))} />
     <footer className="story-footer"><a href="/">Home</a><a href="/submit-story">Share your confession</a><span>Almost · Unfiltered Dating</span></footer>
   </main>;

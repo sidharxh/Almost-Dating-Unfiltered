@@ -7,11 +7,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://almostunfiltereddating.com"),
   title: {
-    default: "Almost — Unfiltered Dating",
+    default: "Anonymous Dating Confessions & Stories | Almost",
     template: "%s | Almost",
   },
   description:
-    "Anonymous dating confessions about betrayal, attraction, mixed signals, and the moments people rarely say out loud.",
+    "Read anonymous dating confessions about betrayal, attraction, mixed signals, and complicated relationships. Browse stories by topic on Almost.",
   applicationName: "Almost — Unfiltered Dating",
   keywords: ["dating confessions", "anonymous dating stories", "relationship confessions", "dating stories"],
   openGraph: {

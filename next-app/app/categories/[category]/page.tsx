@@ -33,7 +33,7 @@ export default async function CategoryPage({ params }: Props) {
   return <main className="listing-shell">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList).replace(/</g, "\\u003c") }} />
     <header className="story-nav"><a className="brand" href="/" aria-label="Almost home">Almost<span>.</span></a><a className="back-link" href="/categories">All categories</a></header>
-    <section className="listing-hero"><p className="story-kicker">Unfiltered Dating · Confession topic</p><h1>{category.label}</h1><p>{category.description}</p></section>
+    <section className="listing-hero"><p className="story-kicker">Unfiltered Dating · Confession topic</p><h1>{category.label} Dating Confessions</h1><p>{category.description} Read anonymous dating stories in this topic, with each confession focused on its own situation.</p></section>
     {stories.length ? <div className="story-cards listing-cards">{stories.map((story) => <article className="story-list-card" key={story.id}>
       {story.coverImageUrl && <StoryImageViewer src={story.coverImageUrl} alt={story.coverImageAlt} variant="card" />}
       <div className="story-list-card-copy"><span className="category-pill">{story.category}</span><h2><a href={storyPath(story)}>{story.title}</a></h2><p>{story.summary}</p><a className="card-link" href={storyPath(story)}>Read confession →</a></div>
