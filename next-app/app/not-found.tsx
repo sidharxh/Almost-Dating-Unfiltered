@@ -1,0 +1,1 @@
+import Header,{Footer} from '@/components/header';export default function NotFound(){return <div className="shell"><Header/><main className="text-page"><p className="eyebrow">404 · WRONG TURN</p><h1>This page went <em>off script.</em></h1><p>Let’s find you something more interesting.</p><a className="button dark" href="/quizzes">Explore quizzes ↗</a></main><Footer/></div>}

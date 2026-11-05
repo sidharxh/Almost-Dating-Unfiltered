@@ -1,0 +1,1 @@
+import {resultImage} from '@/lib/result-image';export async function GET(_req:Request,{params}:{params:Promise<{slug:string;resultSlug:string}>}){const p=await params;return resultImage(p.slug,p.resultSlug,true)}

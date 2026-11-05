@@ -1,0 +1,3 @@
+import Header,{Footer} from '@/components/header'; import {QuizCard} from '@/components/cards'; import {quizzes} from '@/content/quizzes';
+export const metadata={title:'Dating quizzes',description:'Find your dating energy, texting vibe, and first-date style with free quizzes and instant results.'};
+export default function Page(){return <div className="shell"><Header/><main className="directory"><span className="eyebrow">THE QUIZ COLLECTION ✳</span><h1>Let’s talk <em>dating.</em></h1><p>Pick the question you’re curious about. Your result is waiting on the other side.</p><div className="quiz-grid">{quizzes.map((q,i)=><QuizCard quiz={q} index={i} key={q.id}/>)}</div></main><Footer/></div>}
