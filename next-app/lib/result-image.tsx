@@ -29,7 +29,7 @@ export function resultImage(slug: string, resultSlug: string, portrait: boolean)
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: portrait ? 38 : 26, fontWeight: 800}}><span>almost.</span><span>THE QUIZ CLUB ✳</span></div>
       <div style={{display: 'flex', flexDirection: 'column', gap: portrait ? 24 : 14}}>
         <ResultIcon icon={r.icon} size={portrait ? 118 : 66} />
-        <span style={{fontSize: portrait ? 32 : 22, fontWeight: 800, letterSpacing: 2}}>MY RESULT IS</span>
+        <span style={{fontSize: portrait ? 32 : 22, fontWeight: 800, letterSpacing: 2}}>MY CURRENT VIBE</span>
         <span style={{fontSize: portrait ? 92 : 64, fontWeight: 900, lineHeight: 1.02}}>{r.name}</span>
         <span style={{fontSize: portrait ? 36 : 27, lineHeight: 1.25, maxWidth: portrait ? 860 : 1000}}>{r.summary}</span>
         {portrait ? <div style={{display: 'flex', flexDirection: 'column', gap: 24, marginTop: 28}}><Detail label="YOUR STRENGTH" value={r.strength} /><Detail label="KEEP IN MIND" value={r.watch} /><Detail label="TRY THIS NEXT" value={r.action} /></div> : null}
