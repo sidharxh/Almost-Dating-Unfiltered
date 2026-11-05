@@ -1,7 +1,7 @@
 # Product reset and data boundary
 
-The existing Git remote is `sidharxh/Almost-Dating-Unfiltered`. The production sitemap supplied by the owner matches the Next.js application's generated routes, consistent with the Vercel deployment and `next-app` project root. The separate GitHub Pages workflow and old static site are retired in this change. Domain routing and the `CNAME` file are not modified. Confirm Vercel project root and deployment before release. The contents of the separate `sidharxh/guilty-pages` repository could not be verified because GitHub CLI is unavailable.
+The existing Git remote is `sidharxh/Almost-Dating-Unfiltered`, with Vercel hosting the Next.js app in `next-app`. The old static website and its GitHub Pages workflow were retired. The domain and `CNAME` remain unchanged.
 
-Legacy confessions, guide leads, image requests, reactions, comments, uploads, and storage objects may still exist in the existing Supabase project. No live data, storage, credentials, or project was changed or deleted. Historical email addresses are not imported or subscribed. Review and retain or delete those records separately under the owner's instructions.
+On 5 November 2026 the owner explicitly requested removal of all prior site data. The legacy confession, guide lead, reaction, comment and interaction records were deleted and their tables and obsolete upload policies were removed. The `confession-images` bucket had no objects. The existing Supabase project remains; its new `simulator_waitlist` table uses row-level security and does not expose data to anonymous visitors. No historical email addresses were imported or subscribed.
 
-Old URLs without a relevant replacement return the app's 404. Preserve the GA4 property G-WWJH2R0QS6. Do not deploy this reset until integrations and production configuration are reviewed.
+The owner chose to retain historical Google Analytics data. The existing GA4 property remains. Old URLs without a relevant replacement return 404.
